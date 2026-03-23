@@ -1,0 +1,26 @@
+server:
+  port: 8081 # Running on a different port than the Gateway
+
+spring:
+  application:
+    name: auth-service
+  datasource:
+    url: jdbc:mysql://localhost:3306/founderlink_auth?createDatabaseIfNotExist=true
+    username: root
+    password: your_database_password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update # Automatically creates your database tables
+    show-sql: true
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+logging:
+  level:
+    com.founderlink: INFO

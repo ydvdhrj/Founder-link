@@ -1,0 +1,17 @@
+server:
+  port: 8761 # Standard port for Eureka
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    register-with-eureka: false # The server shouldn't register with itself
+    fetch-registry: false       # The server doesn't need to fetch its own registry
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+
+# Global logging configuration for this service
+logging:
+  level:
+    com.founderlink: INFO
+    org.springframework.cloud: WARN

@@ -1,0 +1,5 @@
+package com.founderlink.authservice.repo;
+
+public interface RoleRepository {
+
+}
