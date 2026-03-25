@@ -8,25 +8,52 @@ spring:
     gateway:
       discovery:
         locator:
-          enabled: true # Allows gateway to find services in Eureka
+          enabled: true
           lower-case-service-id: true
       routes:
+        # Route for Auth Service
         - id: auth-service
           uri: lb://auth-service
           predicates:
             - Path=/auth/**
+        # Route for User Service
         - id: user-service
           uri: lb://user-service
           predicates:
             - Path=/users/**
+        - id: startup-service
+          uri: lb://startup-service
+          predicates:
+            - Path=/startups/**
+        - id: investment-service
+          uri: lb://investment-service
+          predicates:
+            - Path=/investments/**
+        - id: team-service
+          uri: lb://team-service
+          predicates:
+            - Path=/teams/**
 
 eureka:
   instance:
     hostname: localhost
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka/ # Points to your Eureka Server
+      defaultZone: http://localhost:8761/eureka/
 
-logging:
-  level:
-    com.founderlink: INFO
+# Centralized Swagger Configuration
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    # This tells Swagger to grab the docs from your microservices via the gateway routes
+    urls:
+      - name: Auth Service
+        url: /auth/v3/api-docs
+      - name: User Service
+        url: /users/v3/api-docs
+      - name: Startup Service
+        url: /startups/v3/api-docs
+      - name: Investment Service
+        url: /investments/v3/api-docs
+      - name: Team Service
+        url: /teams/v3/api-docs
