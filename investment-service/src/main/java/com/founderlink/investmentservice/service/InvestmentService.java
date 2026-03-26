@@ -7,12 +7,15 @@ import com.founderlink.investmentservice.entity.Investment;
 import com.founderlink.investmentservice.entity.InvestmentStatus;
 import com.founderlink.investmentservice.repository.InvestmentRepository;
 import feign.FeignException;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 @RequiredArgsConstructor
@@ -25,6 +28,7 @@ public class InvestmentService {
 	private final RabbitTemplate rabbitTemplate;
 
 	@Transactional
+	@CircuitBreaker(name = "startupService", fallbackMethod = "createInvestmentFallback")
 	public Investment createInvestment(String startupId, String investorId, Double amount) {
 		try {
 			startupServiceClient.getStartupById(startupId);
@@ -52,6 +56,12 @@ public class InvestmentService {
 		rabbitTemplate.convertAndSend(RabbitMQConfig.FOUNDERLINK_EXCHANGE, ROUTING_KEY_INVESTMENT_CREATED, event);
 
 		return saved;
+	}
+
+	private Investment createInvestmentFallback(String startupId, String investorId, Double amount, Throwable throwable) {
+		throw new ResponseStatusException(
+				HttpStatus.SERVICE_UNAVAILABLE,
+				"startup-service is unavailable; investment creation is temporarily blocked");
 	}
 
 	@Transactional(readOnly = true)

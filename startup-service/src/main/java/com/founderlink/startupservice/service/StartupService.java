@@ -9,6 +9,7 @@ import com.founderlink.startupservice.dto.UserDto;
 import com.founderlink.startupservice.entity.Startup;
 import com.founderlink.startupservice.repository.StartupRepository;
 import feign.FeignException;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -53,6 +54,7 @@ public class StartupService {
 	}
 
 	@Transactional(readOnly = true)
+	@CircuitBreaker(name = "userService", fallbackMethod = "getStartupWithFounderDetailsFallback")
 	public StartupResponseDTO getStartupWithFounderDetails(String startupId) {
 		UUID id = UUID.fromString(startupId);
 		Startup startup = startupRepository.findById(id)
@@ -68,6 +70,16 @@ public class StartupService {
 		}
 
 		return StartupResponseDTO.builder().startup(startup).founder(founder).build();
+	}
+
+	private StartupResponseDTO getStartupWithFounderDetailsFallback(String startupId, Throwable throwable) {
+		UUID id = UUID.fromString(startupId);
+		Startup startup = startupRepository.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("Startup not found: " + startupId));
+		return StartupResponseDTO.builder()
+				.startup(startup)
+				.founder(null)
+				.build();
 	}
 
 	@Transactional(readOnly = true)

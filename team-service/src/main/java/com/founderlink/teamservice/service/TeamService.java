@@ -10,13 +10,16 @@ import com.founderlink.teamservice.entity.TeamMember;
 import com.founderlink.teamservice.entity.TeamRole;
 import com.founderlink.teamservice.repository.TeamRepository;
 import feign.FeignException;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 @RequiredArgsConstructor
@@ -29,6 +32,7 @@ public class TeamService {
 	private final RabbitTemplate rabbitTemplate;
 
 	@Transactional
+	@CircuitBreaker(name = "startupService", fallbackMethod = "inviteMemberFallback")
 	public TeamMember inviteMember(String startupId, String invitedUserId, TeamRole role, String requesterId) {
 		StartupDto startup = fetchStartupOrThrow(startupId);
 		if (startup.getFounderId() == null || !startup.getFounderId().equals(requesterId)) {
@@ -54,6 +58,13 @@ public class TeamService {
 		rabbitTemplate.convertAndSend(RabbitMQConfig.FOUNDERLINK_EXCHANGE, ROUTING_KEY_TEAM_INVITE, event);
 
 		return saved;
+	}
+
+	private TeamMember inviteMemberFallback(String startupId, String invitedUserId, TeamRole role, String requesterId,
+			Throwable throwable) {
+		throw new ResponseStatusException(
+				HttpStatus.SERVICE_UNAVAILABLE,
+				"startup-service is unavailable; team invitation is temporarily blocked");
 	}
 
 	@Transactional

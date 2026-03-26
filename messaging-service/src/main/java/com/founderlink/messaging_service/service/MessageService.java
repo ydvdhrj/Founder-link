@@ -7,9 +7,12 @@ import com.founderlink.messaging_service.dto.NewMessageEvent;
 import com.founderlink.messaging_service.repository.MessageRepository;
 import feign.FeignException;
 import java.util.List;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 @RequiredArgsConstructor
@@ -21,6 +24,7 @@ public class MessageService {
 	private final UserServiceClient userServiceClient;
 	private final RabbitTemplate rabbitTemplate;
 
+	@CircuitBreaker(name = "userService", fallbackMethod = "sendMessageFallback")
 	public Message sendMessage(String senderId, String receiverId, String content) {
 		try {
 			// Receiver existence check (response body is not needed).
@@ -54,6 +58,12 @@ public class MessageService {
 		);
 
 		return saved;
+	}
+
+	private Message sendMessageFallback(String senderId, String receiverId, String content, Throwable throwable) {
+		throw new ResponseStatusException(
+				HttpStatus.SERVICE_UNAVAILABLE,
+				"user-service is unavailable; message delivery is temporarily blocked");
 	}
 
 	public List<Message> getConversation(String userA, String userB) {
