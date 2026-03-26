@@ -4,6 +4,8 @@ import com.founderlink.messaging_service.client.UserServiceClient;
 import com.founderlink.messaging_service.config.RabbitMQConfig;
 import com.founderlink.messaging_service.document.Message;
 import com.founderlink.messaging_service.dto.NewMessageEvent;
+import com.founderlink.messaging_service.exception.BusinessValidationException;
+import com.founderlink.messaging_service.exception.ResourceNotFoundException;
 import com.founderlink.messaging_service.repository.MessageRepository;
 import feign.FeignException;
 import java.util.List;
@@ -26,11 +28,14 @@ public class MessageService {
 
 	@CircuitBreaker(name = "userService", fallbackMethod = "sendMessageFallback")
 	public Message sendMessage(String senderId, String receiverId, String content) {
+		if (content == null || content.isBlank()) {
+			throw new BusinessValidationException("Message content must not be blank");
+		}
 		try {
 			// Receiver existence check (response body is not needed).
 			userServiceClient.getUserById(receiverId);
 		} catch (FeignException.NotFound e) {
-			throw new IllegalArgumentException("Receiver not found: " + receiverId);
+			throw new ResourceNotFoundException("Receiver not found: " + receiverId);
 		} catch (FeignException e) {
 			throw new IllegalStateException("Could not verify receiver via user-service: " + e.getMessage());
 		}

@@ -7,6 +7,8 @@ import com.founderlink.startupservice.dto.StartupCreatedEvent;
 import com.founderlink.startupservice.dto.StartupResponseDTO;
 import com.founderlink.startupservice.dto.UserDto;
 import com.founderlink.startupservice.entity.Startup;
+import com.founderlink.startupservice.exception.BusinessValidationException;
+import com.founderlink.startupservice.exception.ResourceNotFoundException;
 import com.founderlink.startupservice.repository.StartupRepository;
 import feign.FeignException;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
@@ -56,9 +58,9 @@ public class StartupService {
 	@Transactional(readOnly = true)
 	@CircuitBreaker(name = "userService", fallbackMethod = "getStartupWithFounderDetailsFallback")
 	public StartupResponseDTO getStartupWithFounderDetails(String startupId) {
-		UUID id = UUID.fromString(startupId);
+		UUID id = parseStartupId(startupId);
 		Startup startup = startupRepository.findById(id)
-				.orElseThrow(() -> new IllegalArgumentException("Startup not found: " + startupId));
+				.orElseThrow(() -> new ResourceNotFoundException("Startup not found: " + startupId));
 
 		UserDto founder = null;
 		try {
@@ -73,13 +75,21 @@ public class StartupService {
 	}
 
 	private StartupResponseDTO getStartupWithFounderDetailsFallback(String startupId, Throwable throwable) {
-		UUID id = UUID.fromString(startupId);
+		UUID id = parseStartupId(startupId);
 		Startup startup = startupRepository.findById(id)
-				.orElseThrow(() -> new IllegalArgumentException("Startup not found: " + startupId));
+				.orElseThrow(() -> new ResourceNotFoundException("Startup not found: " + startupId));
 		return StartupResponseDTO.builder()
 				.startup(startup)
 				.founder(null)
 				.build();
+	}
+
+	private UUID parseStartupId(String startupId) {
+		try {
+			return UUID.fromString(startupId);
+		} catch (IllegalArgumentException ex) {
+			throw new BusinessValidationException("Invalid startup id format: " + startupId);
+		}
 	}
 
 	@Transactional(readOnly = true)

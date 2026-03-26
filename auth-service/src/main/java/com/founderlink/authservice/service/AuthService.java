@@ -9,6 +9,8 @@ import com.founderlink.authservice.dto.UserResponse;
 import com.founderlink.authservice.config.JwtProperties;
 import com.founderlink.authservice.entity.Role;
 import com.founderlink.authservice.entity.User;
+import com.founderlink.authservice.exception.BusinessValidationException;
+import com.founderlink.authservice.exception.ResourceNotFoundException;
 import com.founderlink.authservice.repo.RoleRepository;
 import com.founderlink.authservice.repo.UserRepository;
 import com.founderlink.authservice.security.JwtTokenProvider;
@@ -53,11 +55,11 @@ public class AuthService {
     @Transactional
     public AuthResponse register(RegisterRequest request) {
         if (userRepository.existsByEmail(request.getEmail())) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Email already registered");
+            throw new BusinessValidationException("Email already registered");
         }
 
         Role role = roleRepository.findByName(request.getRole())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Unknown role"));
+                .orElseThrow(() -> new BusinessValidationException("Unknown role"));
 
         User user = new User();
         user.setName(request.getName());
@@ -126,7 +128,7 @@ public class AuthService {
     @Transactional(readOnly = true)
     public UserResponse getCurrentUser(Long userId) {
         User user = userRepository.findByIdWithRoles(userId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
         List<String> roles = user.getRoles().stream()
                 .map(r -> r.getName().name())

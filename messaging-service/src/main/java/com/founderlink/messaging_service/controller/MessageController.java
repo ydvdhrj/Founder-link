@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -41,7 +42,7 @@ public class MessageController {
 	})
 	public ResponseEntity<Message> send(
 			@RequestHeader("X-User-Id") String senderId,
-			@RequestBody SendMessageRequest request
+			@Valid @RequestBody SendMessageRequest request
 	) {
 		Message saved = messageService.sendMessage(senderId, request.getReceiverId(), request.getContent());
 		return ResponseEntity.status(HttpStatus.CREATED).body(saved);

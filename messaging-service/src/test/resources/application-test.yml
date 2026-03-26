@@ -3,9 +3,12 @@ eureka:
     enabled: false
 
 spring:
+  cloud:
+    config:
+      enabled: false
   data:
     mongodb:
-      uri: mongodb://localhost:27017/founderlink_messages_test
+      database: founderlink_messages_test
   main:
     allow-bean-definition-overriding: true
 

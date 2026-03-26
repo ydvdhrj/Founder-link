@@ -5,6 +5,8 @@ import com.founderlink.investmentservice.config.RabbitMQConfig;
 import com.founderlink.investmentservice.dto.InvestmentCreatedEvent;
 import com.founderlink.investmentservice.entity.Investment;
 import com.founderlink.investmentservice.entity.InvestmentStatus;
+import com.founderlink.investmentservice.exception.BusinessValidationException;
+import com.founderlink.investmentservice.exception.ResourceNotFoundException;
 import com.founderlink.investmentservice.repository.InvestmentRepository;
 import feign.FeignException;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
@@ -30,10 +32,13 @@ public class InvestmentService {
 	@Transactional
 	@CircuitBreaker(name = "startupService", fallbackMethod = "createInvestmentFallback")
 	public Investment createInvestment(String startupId, String investorId, Double amount) {
+		if (amount == null || amount <= 0) {
+			throw new BusinessValidationException("Investment amount must be greater than zero");
+		}
 		try {
 			startupServiceClient.getStartupById(startupId);
 		} catch (FeignException.NotFound e) {
-			throw new IllegalArgumentException("Startup not found: " + startupId);
+			throw new ResourceNotFoundException("Startup not found: " + startupId);
 		} catch (FeignException e) {
 			throw new IllegalStateException("Could not verify startup: " + e.getMessage());
 		}
@@ -76,9 +81,14 @@ public class InvestmentService {
 
 	@Transactional
 	public Investment updateInvestmentStatus(String investmentId, InvestmentStatus status) {
-		UUID id = UUID.fromString(investmentId);
+		UUID id;
+		try {
+			id = UUID.fromString(investmentId);
+		} catch (IllegalArgumentException ex) {
+			throw new BusinessValidationException("Invalid investment id format: " + investmentId);
+		}
 		Investment investment = investmentRepository.findById(id)
-				.orElseThrow(() -> new IllegalArgumentException("Investment not found: " + investmentId));
+				.orElseThrow(() -> new ResourceNotFoundException("Investment not found: " + investmentId));
 		investment.setStatus(status);
 		return investmentRepository.save(investment);
 	}
