@@ -28,6 +28,13 @@ eureka:
     service-url:
       defaultZone: http://localhost:8761/eureka/
 
+# Matches api-gateway path /auth/v3/api-docs when proxied.
+springdoc:
+  api-docs:
+    path: /auth/v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+
 jwt:
   # Override in production (min 256 bits / 32 bytes for HS256)
   secret: ${JWT_SECRET:FounderLinkDevSecretKeyMustBeAtLeast32BytesLong!!}

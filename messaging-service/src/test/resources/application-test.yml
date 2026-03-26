@@ -1,0 +1,11 @@
+eureka:
+  client:
+    enabled: false
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/founderlink_messages_test
+  main:
+    allow-bean-definition-overriding: true
+

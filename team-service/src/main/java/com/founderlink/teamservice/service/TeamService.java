@@ -51,7 +51,7 @@ public class TeamService {
 				.role(saved.getRole().name())
 				.requesterId(requesterId)
 				.build();
-//		rabbitTemplate.convertAndSend(RabbitMQConfig.FOUNDERLINK_EXCHANGE, ROUTING_KEY_TEAM_INVITE, event);
+		rabbitTemplate.convertAndSend(RabbitMQConfig.FOUNDERLINK_EXCHANGE, ROUTING_KEY_TEAM_INVITE, event);
 
 		return saved;
 	}

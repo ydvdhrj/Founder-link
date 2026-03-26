@@ -6,33 +6,36 @@ spring:
     name: api-gateway
   cloud:
     gateway:
-      discovery:
-        locator:
-          enabled: true
-          lower-case-service-id: true
-      routes:
-        # Route for Auth Service
-        - id: auth-service
-          uri: lb://auth-service
-          predicates:
-            - Path=/auth/**
-        # Route for User Service
-        - id: user-service
-          uri: lb://user-service
-          predicates:
-            - Path=/users/**
-        - id: startup-service
-          uri: lb://startup-service
-          predicates:
-            - Path=/startups/**
-        - id: investment-service
-          uri: lb://investment-service
-          predicates:
-            - Path=/investments/**
-        - id: team-service
-          uri: lb://team-service
-          predicates:
-            - Path=/teams/**
+      server:
+        webflux:
+          discovery:
+            locator:
+              enabled: false
+          routes:
+            - id: auth-service
+              uri: lb://auth-service
+              predicates:
+                - Path=/auth/**
+            - id: user-service
+              uri: lb://user-service
+              predicates:
+                - Path=/users/**
+            - id: startup-service
+              uri: lb://startup-service
+              predicates:
+                - Path=/startups/**
+            - id: investment-service
+              uri: lb://investment-service
+              predicates:
+                - Path=/investments/**
+            - id: team-service
+              uri: lb://team-service
+              predicates:
+                - Path=/teams/**
+            - id: messaging-service
+              uri: lb://messaging-service
+              predicates:
+                - Path=/messages/**
 
 eureka:
   instance:
@@ -41,11 +44,9 @@ eureka:
     service-url:
       defaultZone: http://localhost:8761/eureka/
 
-# Centralized Swagger Configuration
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
-    # This tells Swagger to grab the docs from your microservices via the gateway routes
     urls:
       - name: Auth Service
         url: /auth/v3/api-docs
@@ -57,3 +58,9 @@ springdoc:
         url: /investments/v3/api-docs
       - name: Team Service
         url: /teams/v3/api-docs
+      - name: Messaging Service
+        url: /messages/v3/api-docs
+
+logging:
+  level:
+    com.founderlink: INFO

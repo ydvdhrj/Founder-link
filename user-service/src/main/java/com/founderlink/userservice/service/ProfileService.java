@@ -9,7 +9,9 @@ import com.founderlink.userservice.entity.Profile;
 import com.founderlink.userservice.repo.ProfileRepository;
 import com.founderlink.userservice.security.JwtPrincipal;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -88,7 +90,12 @@ public class ProfileService {
 
     @Transactional(readOnly = true)
     public Page<ProfileResponse> list(Pageable pageable) {
-        return profileRepository.findAllByOrderByNameAsc(pageable).map(this::toResponse);
+        // Ignore client `sort` (Swagger sends placeholder e.g. ["string"], which breaks JPA Sort validation).
+        Pageable byName = PageRequest.of(
+                pageable.getPageNumber(),
+                pageable.getPageSize(),
+                Sort.by(Sort.Direction.ASC, "name"));
+        return profileRepository.findAll(byName).map(this::toResponse);
     }
 
     private void ensureCanEdit(Long userId, JwtPrincipal principal) {

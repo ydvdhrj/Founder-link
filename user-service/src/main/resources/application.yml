@@ -30,6 +30,14 @@ eureka:
 jwt:
   secret: ${JWT_SECRET:FounderLinkDevSecretKeyMustBeAtLeast32BytesLong!!}
 
+# Paths must match the gateway route prefix (/users/**) so /users/v3/api-docs reaches this doc.
+springdoc:
+  api-docs:
+    path: /users/v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
+
 logging:
   level:
     com.founderlink: INFO

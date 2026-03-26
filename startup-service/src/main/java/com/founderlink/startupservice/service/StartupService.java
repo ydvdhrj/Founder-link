@@ -47,7 +47,7 @@ public class StartupService {
 				.industry(saved.getIndustry())
 				.fundingGoal(saved.getFundingGoal())
 				.build();
-//		rabbitTemplate.convertAndSend(RabbitMQConfig.FOUNDERLINK_EXCHANGE, ROUTING_KEY_STARTUP_CREATED, event);
+		rabbitTemplate.convertAndSend(RabbitMQConfig.FOUNDERLINK_EXCHANGE, ROUTING_KEY_STARTUP_CREATED, event);
 
 		return saved;
 	}

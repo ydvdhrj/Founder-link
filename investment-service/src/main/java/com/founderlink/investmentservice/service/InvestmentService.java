@@ -49,7 +49,7 @@ public class InvestmentService {
 				.investorId(saved.getInvestorId())
 				.amount(saved.getAmount())
 				.build();
-//		rabbitTemplate.convertAndSend(RabbitMQConfig.FOUNDERLINK_EXCHANGE, ROUTING_KEY_INVESTMENT_CREATED, event);
+		rabbitTemplate.convertAndSend(RabbitMQConfig.FOUNDERLINK_EXCHANGE, ROUTING_KEY_INVESTMENT_CREATED, event);
 
 		return saved;
 	}

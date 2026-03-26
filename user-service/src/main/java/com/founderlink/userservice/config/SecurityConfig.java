@@ -29,6 +29,11 @@ public class SecurityConfig {
                 .exceptionHandling(ex -> ex.authenticationEntryPoint(
                         new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(
+                                "/swagger-ui/**",
+                                "/swagger-ui.html",
+                                "/users/v3/api-docs",
+                                "/users/v3/api-docs/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/users", "/users/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/users").authenticated()
                         .requestMatchers(HttpMethod.PUT, "/users/**").authenticated()

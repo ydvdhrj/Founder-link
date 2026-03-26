@@ -29,9 +29,10 @@ eureka:
     service-url:
       defaultZone: http://localhost:8761/eureka/
 
+# Must match api-gateway route prefix so /teams/v3/api-docs resolves when proxied.
 springdoc:
   api-docs:
-    path: /v3/api-docs
+    path: /teams/v3/api-docs
   swagger-ui:
     path: /swagger-ui.html
 
