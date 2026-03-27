@@ -19,6 +19,10 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+/**
+ * JWT stateless security. CORS is handled only by the API Gateway; this service must not add CORS
+ * configuration or {@code @CrossOrigin} (avoids duplicate {@code Access-Control-*} headers).
+ */
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
