@@ -34,6 +34,20 @@ public class NotificationListener {
 			queues = RabbitMQConfig.QUEUE_INVESTMENT,
 			containerFactory = RabbitMQConfig.RABBIT_LISTENER_CONTAINER_FACTORY)
 	public void onInvestmentCreated(Map<String, Object> payload) {
+		Object eventType = payload != null ? payload.get("eventType") : null;
+		if ("INVESTMENT_STATUS_CHANGED".equals(eventType)) {
+			logSimulatedEmail(
+					"INVESTMENT STATUS UPDATED",
+					"investment.status.*",
+					payload,
+					"investmentId",
+					"startupId",
+					"investorId",
+					"status",
+					"approvedByFounderId",
+					"amount");
+			return;
+		}
 		logSimulatedEmail(
 				"INVESTMENT CREATED",
 				"investment.created",

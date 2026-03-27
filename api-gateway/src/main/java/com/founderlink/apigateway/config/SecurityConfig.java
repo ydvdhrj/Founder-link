@@ -70,6 +70,7 @@ public class SecurityConfig {
 						.pathMatchers(HttpMethod.GET, "/startups", "/startups/**").authenticated()
 						// Investments: investors create/manage, founders can view their own
 						.pathMatchers(HttpMethod.POST, "/investments", "/investments/**").hasRole("INVESTOR")
+						.pathMatchers(HttpMethod.PUT, "/investments", "/investments/**").hasRole("FOUNDER")
 						.pathMatchers(HttpMethod.GET, "/investments", "/investments/**").hasAnyRole("INVESTOR", "FOUNDER")
 						// Teams: founders invite, co-founders join/view
 						.pathMatchers(HttpMethod.POST, "/teams", "/teams/**").hasAnyRole("FOUNDER", "COFOUNDER")

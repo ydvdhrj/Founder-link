@@ -24,6 +24,7 @@ public class RabbitMQConfig {
 
 	public static final String ROUTING_STARTUP_CREATED = "startup.created";
 	public static final String ROUTING_INVESTMENT_CREATED = "investment.created";
+	public static final String ROUTING_INVESTMENT_STATUS_ALL = "investment.status.*";
 	public static final String ROUTING_TEAM_INVITE = "team.invite";
 	public static final String ROUTING_MESSAGE_SENT = "message.sent";
 
@@ -62,6 +63,11 @@ public class RabbitMQConfig {
 	@Bean
 	public Binding investmentNotificationBinding(Queue investmentNotificationQueue, TopicExchange founderlinkExchange) {
 		return BindingBuilder.bind(investmentNotificationQueue).to(founderlinkExchange).with(ROUTING_INVESTMENT_CREATED);
+	}
+
+	@Bean
+	public Binding investmentStatusNotificationBinding(Queue investmentNotificationQueue, TopicExchange founderlinkExchange) {
+		return BindingBuilder.bind(investmentNotificationQueue).to(founderlinkExchange).with(ROUTING_INVESTMENT_STATUS_ALL);
 	}
 
 	@Bean

@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -31,5 +32,21 @@ public class GlobalExceptionHandler {
 				.findFirst()
 				.orElse("Validation failed");
 		return ResponseEntity.badRequest().body(Map.of("error", msg));
+	}
+
+	@ExceptionHandler(ResponseStatusException.class)
+	public ResponseEntity<Map<String, String>> handleResponseStatus(ResponseStatusException e) {
+		HttpStatus status = HttpStatus.resolve(e.getStatusCode().value());
+		if (status == null) {
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+		String msg = e.getReason() != null ? e.getReason() : status.getReasonPhrase();
+		return ResponseEntity.status(status).body(Map.of("error", msg));
+	}
+
+	@ExceptionHandler(Exception.class)
+	public ResponseEntity<Map<String, String>> handleUnexpected(Exception e) {
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+				.body(Map.of("error", "Unexpected error"));
 	}
 }

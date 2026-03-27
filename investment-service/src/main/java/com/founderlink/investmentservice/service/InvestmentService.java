@@ -10,8 +10,10 @@ import com.founderlink.investmentservice.exception.ResourceNotFoundException;
 import com.founderlink.investmentservice.repository.InvestmentRepository;
 import feign.FeignException;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import java.util.Map;
 import java.util.List;
 import java.util.UUID;
+import java.util.HashMap;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.http.HttpStatus;
@@ -24,24 +26,19 @@ import org.springframework.web.server.ResponseStatusException;
 public class InvestmentService {
 
 	public static final String ROUTING_KEY_INVESTMENT_CREATED = "investment.created";
+	public static final String ROUTING_KEY_INVESTMENT_APPROVED = "investment.status.approved";
+	public static final String ROUTING_KEY_INVESTMENT_REJECTED = "investment.status.rejected";
 
 	private final InvestmentRepository investmentRepository;
 	private final StartupServiceClient startupServiceClient;
 	private final RabbitTemplate rabbitTemplate;
 
 	@Transactional
-	@CircuitBreaker(name = "startupService", fallbackMethod = "createInvestmentFallback")
 	public Investment createInvestment(String startupId, String investorId, Double amount) {
 		if (amount == null || amount <= 0) {
 			throw new BusinessValidationException("Investment amount must be greater than zero");
 		}
-		try {
-			startupServiceClient.getStartupById(startupId);
-		} catch (FeignException.NotFound e) {
-			throw new ResourceNotFoundException("Startup not found: " + startupId);
-		} catch (FeignException e) {
-			throw new IllegalStateException("Could not verify startup: " + e.getMessage());
-		}
+		verifyStartupWithCircuitBreaker(startupId);
 
 		Investment investment = Investment.builder()
 				.startupId(startupId)
@@ -63,7 +60,18 @@ public class InvestmentService {
 		return saved;
 	}
 
-	private Investment createInvestmentFallback(String startupId, String investorId, Double amount, Throwable throwable) {
+	@CircuitBreaker(name = "startupService", fallbackMethod = "verifyStartupFallback")
+	private void verifyStartupWithCircuitBreaker(String startupId) {
+		try {
+			startupServiceClient.getStartupById(startupId);
+		} catch (FeignException.NotFound e) {
+			throw new ResourceNotFoundException("Startup not found: " + startupId);
+		} catch (FeignException e) {
+			throw new IllegalStateException("Could not verify startup: " + e.getMessage());
+		}
+	}
+
+	private void verifyStartupFallback(String startupId, Throwable throwable) {
 		throw new ResponseStatusException(
 				HttpStatus.SERVICE_UNAVAILABLE,
 				"startup-service is unavailable; investment creation is temporarily blocked");
@@ -80,7 +88,7 @@ public class InvestmentService {
 	}
 
 	@Transactional
-	public Investment updateInvestmentStatus(String investmentId, InvestmentStatus status) {
+	public Investment updateInvestmentStatus(String investmentId, InvestmentStatus status, String founderId) {
 		UUID id;
 		try {
 			id = UUID.fromString(investmentId);
@@ -89,7 +97,56 @@ public class InvestmentService {
 		}
 		Investment investment = investmentRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Investment not found: " + investmentId));
+		String startupFounderId = loadStartupFounderIdWithCircuitBreaker(investment.getStartupId());
+		if (startupFounderId == null || !startupFounderId.equals(founderId)) {
+			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Only the startup founder can update investment status");
+		}
 		investment.setStatus(status);
-		return investmentRepository.save(investment);
+		Investment saved = investmentRepository.save(investment);
+
+		Map<String, Object> event = new HashMap<>();
+		event.put("eventType", "INVESTMENT_STATUS_CHANGED");
+		event.put("investmentId", saved.getId());
+		event.put("startupId", saved.getStartupId());
+		event.put("investorId", saved.getInvestorId());
+		event.put("amount", saved.getAmount());
+		event.put("status", saved.getStatus().name());
+		event.put("approvedByFounderId", founderId);
+
+		String routingKey = switch (saved.getStatus()) {
+			case APPROVED -> ROUTING_KEY_INVESTMENT_APPROVED;
+			case REJECTED -> ROUTING_KEY_INVESTMENT_REJECTED;
+			default -> null;
+		};
+		if (routingKey != null) {
+			rabbitTemplate.convertAndSend(RabbitMQConfig.FOUNDERLINK_EXCHANGE, routingKey, event);
+		}
+		return saved;
+	}
+
+	@CircuitBreaker(name = "startupService", fallbackMethod = "loadStartupFounderIdFallback")
+	private String loadStartupFounderIdWithCircuitBreaker(String startupId) {
+		try {
+			Map<String, Object> payload = startupServiceClient.getStartupById(startupId);
+			if (payload == null) {
+				throw new ResourceNotFoundException("Startup not found: " + startupId);
+			}
+			Object startupObj = payload.get("startup");
+			if (!(startupObj instanceof Map<?, ?> startupMap)) {
+				throw new ResourceNotFoundException("Startup not found: " + startupId);
+			}
+			Object founderId = startupMap.get("founderId");
+			return founderId != null ? founderId.toString() : null;
+		} catch (FeignException.NotFound e) {
+			throw new ResourceNotFoundException("Startup not found: " + startupId);
+		} catch (FeignException e) {
+			throw new IllegalStateException("Could not verify startup: " + e.getMessage());
+		}
+	}
+
+	private String loadStartupFounderIdFallback(String startupId, Throwable throwable) {
+		throw new ResponseStatusException(
+				HttpStatus.SERVICE_UNAVAILABLE,
+				"startup-service is unavailable; investment status update is temporarily blocked");
 	}
 }

@@ -3,6 +3,7 @@ package com.founderlink.investmentservice.config;
 import com.founderlink.investmentservice.security.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -32,6 +33,10 @@ public class SecurityConfig {
 				.authorizeHttpRequests(auth -> auth
 						.requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
 						.requestMatchers("/investments/v3/api-docs", "/investments/v3/api-docs/**").permitAll()
+						.requestMatchers(HttpMethod.POST, "/investments", "/investments/**").hasRole("INVESTOR")
+						.requestMatchers(HttpMethod.PUT, "/investments", "/investments/**").hasRole("FOUNDER")
+						.requestMatchers(HttpMethod.GET, "/investments", "/investments/**")
+						.hasAnyRole("INVESTOR", "FOUNDER")
 						.anyRequest().authenticated())
 				.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 		return http.build();

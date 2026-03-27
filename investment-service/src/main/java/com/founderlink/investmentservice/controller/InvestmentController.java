@@ -62,10 +62,12 @@ public class InvestmentController {
 	}
 
 	@PutMapping("/{id}/status")
-	@Operation(summary = "Update investment status")
+	@Operation(summary = "Update investment status", description = "Founder-only: approve/reject investment for own startup.")
 	public Investment updateStatus(
 			@PathVariable String id,
-			@RequestParam InvestmentStatus status) {
-		return investmentService.updateInvestmentStatus(id, status);
+			@RequestParam InvestmentStatus status,
+			@Parameter(description = "Founder user id from API Gateway", required = true)
+			@RequestHeader("X-User-Id") String founderId) {
+		return investmentService.updateInvestmentStatus(id, status, founderId);
 	}
 }

@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProfileService {
@@ -89,6 +90,16 @@ public class ProfileService {
     }
 
     @Transactional(readOnly = true)
+    public ProfileResponse getByEmail(String email) {
+        if (email == null || email.isBlank()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "email is required");
+        }
+        Profile p = profileRepository.findByEmailIgnoreCase(email.trim())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Profile not found"));
+        return toResponse(p);
+    }
+
+    @Transactional(readOnly = true)
     public Page<ProfileResponse> list(Pageable pageable) {
         // Ignore client `sort` (Swagger sends placeholder e.g. ["string"], which breaks JPA Sort validation).
         Pageable byName = PageRequest.of(
@@ -96,6 +107,18 @@ public class ProfileService {
                 pageable.getPageSize(),
                 Sort.by(Sort.Direction.ASC, "name"));
         return profileRepository.findAll(byName).map(this::toResponse);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Long> listUserIds(int limit) {
+        int safeLimit = Math.max(1, Math.min(limit, 200));
+        Pageable firstPage = PageRequest.of(0, safeLimit, Sort.by(Sort.Direction.ASC, "userId"));
+        return profileRepository.findAll(firstPage)
+                .stream()
+                .map(Profile::getUserId)
+                .filter(id -> id != null)
+                .distinct()
+                .collect(Collectors.toList());
     }
 
     private void ensureCanEdit(Long userId, JwtPrincipal principal) {

@@ -13,12 +13,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import java.util.List;
 
 @RestController
 @RequestMapping("/users")
@@ -40,6 +42,18 @@ public class UserController {
     @GetMapping("/{userId}")
     public ProfileResponse get(@PathVariable Long userId) {
         return profileService.getByUserId(userId);
+    }
+
+    /** Lookup profile by email and return userId for messaging receiver selection. */
+    @GetMapping("/lookup")
+    public ProfileResponse lookupByEmail(@RequestParam String email) {
+        return profileService.getByEmail(email);
+    }
+
+    /** Compact user id directory for cross-service references (e.g., messaging receiverId). */
+    @GetMapping("/ids")
+    public List<Long> userIds(@RequestParam(defaultValue = "50") int limit) {
+        return profileService.listUserIds(limit);
     }
 
     /** Create profile for the authenticated user (userId comes from JWT). */

@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class TeamService {
 
 	public static final String ROUTING_KEY_TEAM_INVITE = "team.invite";
@@ -32,9 +34,10 @@ public class TeamService {
 	private final RabbitTemplate rabbitTemplate;
 
 	@Transactional
-	@CircuitBreaker(name = "startupService", fallbackMethod = "inviteMemberFallback")
 	public TeamMember inviteMember(String startupId, String invitedUserId, TeamRole role, String requesterId) {
-		StartupDto startup = fetchStartupOrThrow(startupId);
+		log.info("Invite request startupId={}, invitedUserId={}, role={}, requesterId={}",
+				startupId, invitedUserId, role, requesterId);
+		StartupDto startup = loadStartupWithCircuitBreaker(startupId);
 		if (startup.getFounderId() == null || !startup.getFounderId().equals(requesterId)) {
 			throw new IllegalArgumentException("Only the startup founder can send invites");
 		}
@@ -69,8 +72,12 @@ public class TeamService {
 		return saved;
 	}
 
-	private TeamMember inviteMemberFallback(String startupId, String invitedUserId, TeamRole role, String requesterId,
-			Throwable throwable) {
+	@CircuitBreaker(name = "startupService", fallbackMethod = "loadStartupFallback")
+	private StartupDto loadStartupWithCircuitBreaker(String startupId) {
+		return fetchStartupOrThrow(startupId);
+	}
+
+	private StartupDto loadStartupFallback(String startupId, Throwable throwable) {
 		throw new ResponseStatusException(
 				HttpStatus.SERVICE_UNAVAILABLE,
 				"startup-service is unavailable; team invitation is temporarily blocked");
@@ -97,12 +104,18 @@ public class TeamService {
 		try {
 			StartupResponsePayload payload = startupServiceClient.getStartupById(startupId);
 			if (payload == null || payload.getStartup() == null) {
+				log.warn("startup-service returned empty payload for startupId={}", startupId);
 				throw new IllegalArgumentException("Startup not found: " + startupId);
 			}
+			log.info("startup-service returned startupId={} founderId={}",
+					payload.getStartup().getId(), payload.getStartup().getFounderId());
 			return payload.getStartup();
 		} catch (FeignException.NotFound e) {
+			log.warn("startup-service not found for startupId={} status={}", startupId, e.status());
 			throw new IllegalArgumentException("Startup not found: " + startupId);
 		} catch (FeignException e) {
+			log.error("startup-service feign error for startupId={} status={} msg={}",
+					startupId, e.status(), e.getMessage());
 			throw new IllegalStateException("Could not load startup: " + e.getMessage());
 		}
 	}

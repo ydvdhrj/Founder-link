@@ -10,6 +10,7 @@ import com.founderlink.messaging_service.repository.MessageRepository;
 import feign.FeignException;
 import java.util.List;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import lombok.extern.slf4j.Slf4j;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class MessageService {
 
 	public static final String ROUTING_KEY_MESSAGE_SENT = "message.sent";
@@ -26,19 +28,11 @@ public class MessageService {
 	private final UserServiceClient userServiceClient;
 	private final RabbitTemplate rabbitTemplate;
 
-	@CircuitBreaker(name = "userService", fallbackMethod = "sendMessageFallback")
 	public Message sendMessage(String senderId, String receiverId, String content) {
 		if (content == null || content.isBlank()) {
 			throw new BusinessValidationException("Message content must not be blank");
 		}
-		try {
-			// Receiver existence check (response body is not needed).
-			userServiceClient.getUserById(receiverId);
-		} catch (FeignException.NotFound e) {
-			throw new ResourceNotFoundException("Receiver not found: " + receiverId);
-		} catch (FeignException e) {
-			throw new IllegalStateException("Could not verify receiver via user-service: " + e.getMessage());
-		}
+		verifyReceiverWithCircuitBreaker(receiverId);
 
 		Message toSave = Message.builder()
 				.senderId(senderId)
@@ -56,16 +50,33 @@ public class MessageService {
 				.receiverId(saved.getReceiverId())
 				.build();
 
-		rabbitTemplate.convertAndSend(
-				RabbitMQConfig.FOUNDERLINK_EXCHANGE,
-				ROUTING_KEY_MESSAGE_SENT,
-				event
-		);
+		try {
+			rabbitTemplate.convertAndSend(
+					RabbitMQConfig.FOUNDERLINK_EXCHANGE,
+					ROUTING_KEY_MESSAGE_SENT,
+					event
+			);
+		} catch (Exception ex) {
+			// Do not fail chat delivery when broker is temporarily unavailable.
+			log.warn("Message persisted but event publish failed for messageId={}", saved.getId(), ex);
+		}
 
 		return saved;
 	}
 
-	private Message sendMessageFallback(String senderId, String receiverId, String content, Throwable throwable) {
+	@CircuitBreaker(name = "userService", fallbackMethod = "verifyReceiverFallback")
+	private void verifyReceiverWithCircuitBreaker(String receiverId) {
+		try {
+			// Receiver existence check (response body is not needed).
+			userServiceClient.getUserById(receiverId);
+		} catch (FeignException.NotFound e) {
+			throw new ResourceNotFoundException("Receiver not found: " + receiverId);
+		} catch (FeignException e) {
+			throw new IllegalStateException("Could not verify receiver via user-service: " + e.getMessage());
+		}
+	}
+
+	private void verifyReceiverFallback(String receiverId, Throwable throwable) {
 		throw new ResponseStatusException(
 				HttpStatus.SERVICE_UNAVAILABLE,
 				"user-service is unavailable; message delivery is temporarily blocked");
