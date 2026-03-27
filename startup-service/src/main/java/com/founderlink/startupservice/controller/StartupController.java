@@ -13,9 +13,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import java.net.URI;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @RequestMapping("/startups")
@@ -45,8 +46,12 @@ public class StartupController {
 			@Valid @RequestBody CreateStartupRequest request,
 			@Parameter(description = "Auth user id propagated by API Gateway", required = true)
 			@RequestHeader("X-User-Id") String founderId) {
-		Startup body = startupService.createStartup(request, founderId);
-		return ResponseEntity.status(HttpStatus.CREATED).body(body);
+		Startup saved = startupService.createStartup(request, founderId);
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+				.path("/{id}")
+				.buildAndExpand(saved.getId())
+				.toUri();
+		return ResponseEntity.created(location).body(saved);
 	}
 
 	@GetMapping("/{id}")

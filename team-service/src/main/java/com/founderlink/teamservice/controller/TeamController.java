@@ -33,12 +33,12 @@ public class TeamController {
 	private final TeamService teamService;
 
 	@PostMapping(value = "/invite", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	@Operation(summary = "Invite member", description = "Founder-only; publishes TEAM_INVITE_SENT to RabbitMQ.")
+	@Operation(summary = "Invite co-founder", description = "Founder-only; invites a co-founder/team member and publishes TEAM_INVITE_SENT to RabbitMQ.")
 	@ApiResponse(responseCode = "201", description = "Created",
 			content = @Content(schema = @Schema(implementation = TeamMember.class)))
 	public ResponseEntity<TeamMember> invite(
 			@Valid @RequestBody InviteMemberRequest request,
-			@Parameter(description = "Requester (founder) user id", required = true)
+			@Parameter(description = "Requester founder user id (propagated by API Gateway)", required = true)
 			@RequestHeader("X-User-Id") String userId) {
 		TeamMember body = teamService.inviteMember(
 				request.getStartupId(), request.getInvitedUserId(), request.getRole(), userId);

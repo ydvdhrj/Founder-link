@@ -17,3 +17,6 @@ spring:
 eureka:
   client:
     enabled: false
+
+jwt:
+  secret: FounderLinkDevSecretKeyMustBeAtLeast32BytesLong!!

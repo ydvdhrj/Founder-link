@@ -12,6 +12,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.founderlink.startupservice.dto.StartupResponseDTO;
 import com.founderlink.startupservice.entity.Startup;
 import com.founderlink.startupservice.entity.StartupStage;
+import com.founderlink.startupservice.security.JwtAuthenticationFilter;
 import com.founderlink.startupservice.service.StartupService;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
@@ -31,6 +32,9 @@ class StartupControllerTest {
 
 	@MockitoBean
 	private StartupService startupService;
+
+	@MockitoBean
+	private JwtAuthenticationFilter jwtAuthenticationFilter;
 
 	@Test
 	void getById_shouldReturn200_whenStartupExists() throws Exception {

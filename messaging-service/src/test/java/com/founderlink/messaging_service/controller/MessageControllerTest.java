@@ -9,6 +9,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.founderlink.messaging_service.document.Message;
+import com.founderlink.messaging_service.security.JwtAuthenticationFilter;
 import com.founderlink.messaging_service.service.MessageService;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -28,6 +29,9 @@ class MessageControllerTest {
 
 	@MockitoBean
 	private MessageService messageService;
+
+	@MockitoBean
+	private JwtAuthenticationFilter jwtAuthenticationFilter;
 
 	@Test
 	void conversation_shouldReturn200_whenMessagesFound() throws Exception {

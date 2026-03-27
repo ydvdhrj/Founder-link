@@ -12,6 +12,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.founderlink.teamservice.entity.InviteStatus;
 import com.founderlink.teamservice.entity.TeamMember;
 import com.founderlink.teamservice.entity.TeamRole;
+import com.founderlink.teamservice.security.JwtAuthenticationFilter;
 import com.founderlink.teamservice.service.TeamService;
 import java.util.List;
 import java.util.UUID;
@@ -32,6 +33,9 @@ class TeamControllerTest {
 
 	@MockitoBean
 	private TeamService teamService;
+
+	@MockitoBean
+	private JwtAuthenticationFilter jwtAuthenticationFilter;
 
 	@Test
 	void invite_shouldReturn201_whenRequestIsValid() throws Exception {

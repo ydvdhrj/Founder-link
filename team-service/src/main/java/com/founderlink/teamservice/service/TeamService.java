@@ -38,6 +38,15 @@ public class TeamService {
 		if (startup.getFounderId() == null || !startup.getFounderId().equals(requesterId)) {
 			throw new IllegalArgumentException("Only the startup founder can send invites");
 		}
+		if (requesterId.equals(invitedUserId)) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Founder cannot invite themselves");
+		}
+		if (startup.getFounderId().equals(invitedUserId)) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cannot invite the startup founder as a co-founder");
+		}
+		if (teamRepository.existsByStartupIdAndUserId(startupId, invitedUserId)) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User is already invited or part of this startup team");
+		}
 
 		TeamMember member = TeamMember.builder()
 				.startupId(startupId)

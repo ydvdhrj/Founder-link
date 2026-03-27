@@ -52,11 +52,33 @@ public class SecurityConfig {
 				.securityContextRepository(NoOpServerSecurityContextRepository.getInstance())
 				.addFilterAt(jwtAuthWebFilter, SecurityWebFiltersOrder.AUTHENTICATION)
 				.authorizeExchange(exchanges -> exchanges
+						// Public: auth & docs
 						.pathMatchers("/auth/**").permitAll()
 						.pathMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
+						.pathMatchers(
+								"/auth/v3/api-docs/**",
+								"/users/v3/api-docs/**",
+								"/startups/v3/api-docs/**",
+								"/investments/v3/api-docs/**",
+								"/teams/v3/api-docs/**",
+								"/messages/v3/api-docs/**",
+								"/notifications/v3/api-docs/**").permitAll()
+						// User profiles: any authenticated user
 						.pathMatchers("/users/**").authenticated()
-						.pathMatchers(HttpMethod.POST, "/startups/create").hasRole("FOUNDER")
-						.pathMatchers("/investments/**").hasRole("INVESTOR")
+						// Startups: founders create, everyone authenticated can view
+						.pathMatchers(HttpMethod.POST, "/startups", "/startups/**").hasRole("FOUNDER")
+						.pathMatchers(HttpMethod.GET, "/startups", "/startups/**").authenticated()
+						// Investments: investors create/manage, founders can view their own
+						.pathMatchers(HttpMethod.POST, "/investments", "/investments/**").hasRole("INVESTOR")
+						.pathMatchers(HttpMethod.GET, "/investments", "/investments/**").hasAnyRole("INVESTOR", "FOUNDER")
+						// Teams: founders invite, co-founders join/view
+						.pathMatchers(HttpMethod.POST, "/teams", "/teams/**").hasAnyRole("FOUNDER", "COFOUNDER")
+						.pathMatchers(HttpMethod.GET, "/teams", "/teams/**").hasAnyRole("FOUNDER", "COFOUNDER")
+						// Messaging: any authenticated user
+						.pathMatchers("/messages/**").authenticated()
+						// Notifications: any authenticated user
+						.pathMatchers("/notifications/**").authenticated()
+						// Everything else: must be authenticated
 						.anyExchange().authenticated())
 				.build();
 	}

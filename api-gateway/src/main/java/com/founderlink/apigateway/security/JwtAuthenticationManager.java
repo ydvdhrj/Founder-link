@@ -9,10 +9,11 @@ import java.util.Collection;
 import java.util.List;
 import javax.crypto.SecretKey;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.ReactiveAuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.authentication.ReactiveAuthenticationManager;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
@@ -40,21 +41,32 @@ public class JwtAuthenticationManager implements ReactiveAuthenticationManager {
 					.getBody();
 			String tokenType = claims.get(CLAIM_TYPE, String.class);
 			if (!TYPE_ACCESS.equals(tokenType)) {
-				return Mono.empty();
+				return Mono.error(new BadCredentialsException("Not an access token"));
 			}
 
-			String subject = claims.getSubject();
+			String principal = extractPrincipal(claims);
 			Object rolesClaim = claims.get("roles");
 			Collection<SimpleGrantedAuthority> authorities = toAuthorities(rolesClaim);
 
-			if (subject == null || subject.isBlank()) {
-				return Mono.empty();
+			if (principal == null || principal.isBlank()) {
+				return Mono.error(new BadCredentialsException("Token has no principal"));
 			}
 
-			return Mono.just(UsernamePasswordAuthenticationToken.authenticated(subject, token, authorities));
+			return Mono.just(UsernamePasswordAuthenticationToken.authenticated(principal, token, authorities));
 		} catch (JwtException | IllegalArgumentException e) {
-			return Mono.empty();
+			return Mono.error(new BadCredentialsException("Invalid JWT", e));
 		}
+	}
+
+	private String extractPrincipal(Claims claims) {
+		Object userIdClaim = claims.get("userId");
+		if (userIdClaim != null) {
+			String value = String.valueOf(userIdClaim).trim();
+			if (!value.isEmpty()) {
+				return value;
+			}
+		}
+		return claims.getSubject();
 	}
 
 	private Collection<SimpleGrantedAuthority> toAuthorities(Object rolesClaim) {

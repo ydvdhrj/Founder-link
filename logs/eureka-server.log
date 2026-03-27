@@ -1,0 +1,103 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------------------< com.founderlink:eureka-server >--------------------
+[INFO] Building eureka-server 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:4.0.4:run (default-cli) > test-compile @ eureka-server >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ eureka-server ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] Copying 0 resource from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ eureka-server ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ eureka-server ---
+[INFO] skip non existing resourceDirectory /home/dheeraj/Desktop/FounderLink/eureka-server/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ eureka-server ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] <<< spring-boot:4.0.4:run (default-cli) < test-compile @ eureka-server <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:4.0.4:run (default-cli) @ eureka-server ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.4)
+
+2026-03-27T19:05:24.342+05:30  INFO 87012 --- [           main] c.example.demo.EurekaServerApplication   : Starting EurekaServerApplication using Java 17.0.18 with PID 87012 (/home/dheeraj/Desktop/FounderLink/eureka-server/target/classes started by dheeraj in /home/dheeraj/Desktop/FounderLink/eureka-server)
+2026-03-27T19:05:24.344+05:30  INFO 87012 --- [           main] c.example.demo.EurekaServerApplication   : No active profile set, falling back to 1 default profile: "default"
+2026-03-27T19:05:25.011+05:30  INFO 87012 --- [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8761 (http)
+2026-03-27T19:05:25.018+05:30  INFO 87012 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-27T19:05:25.018+05:30  INFO 87012 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-03-27T19:05:25.050+05:30  INFO 87012 --- [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 679 ms
+2026-03-27T19:05:25.501+05:30  INFO 87012 --- [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using JSON encoding codec LegacyJacksonJson
+2026-03-27T19:05:25.501+05:30  INFO 87012 --- [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using JSON decoding codec LegacyJacksonJson
+2026-03-27T19:05:25.586+05:30  INFO 87012 --- [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using XML encoding codec XStreamXml
+2026-03-27T19:05:25.586+05:30  INFO 87012 --- [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using XML decoding codec XStreamXml
+2026-03-27T19:05:25.660+05:30  INFO 87012 --- [           main] o.s.v.b.OptionalValidatorFactoryBean     : Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2026-03-27T19:05:25.975+05:30  WARN 87012 --- [           main] iguration$LoadBalancerCaffeineWarnLogger : Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2026-03-27T19:05:25.992+05:30  INFO 87012 --- [           main] com.netflix.discovery.DiscoveryClient    : Initializing Eureka in region us-east-1
+2026-03-27T19:05:25.992+05:30  INFO 87012 --- [           main] com.netflix.discovery.DiscoveryClient    : Client configured to neither register nor query for data.
+2026-03-27T19:05:25.993+05:30  INFO 87012 --- [           main] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1774618525993 with initial instances count: 0
+2026-03-27T19:05:26.013+05:30  INFO 87012 --- [           main] c.n.eureka.DefaultEurekaServerContext    : Initializing ...
+2026-03-27T19:05:26.014+05:30  WARN 87012 --- [           main] c.n.eureka.cluster.PeerEurekaNodes       : The replica size seems to be empty. Check the route 53 DNS Registry
+2026-03-27T19:05:26.019+05:30  INFO 87012 --- [           main] c.n.e.registry.AbstractInstanceRegistry  : Finished initializing remote region registries. All known remote regions: []
+2026-03-27T19:05:26.020+05:30  INFO 87012 --- [           main] c.n.eureka.DefaultEurekaServerContext    : Initialized
+2026-03-27T19:05:26.024+05:30  INFO 87012 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2026-03-27T19:05:26.053+05:30  INFO 87012 --- [       Thread-9] c.n.e.r.PeerAwareInstanceRegistryImpl    : Got 1 instances from neighboring DS node
+2026-03-27T19:05:26.054+05:30  INFO 87012 --- [       Thread-9] c.n.e.r.PeerAwareInstanceRegistryImpl    : Renew threshold is: 1
+2026-03-27T19:05:26.054+05:30  INFO 87012 --- [       Thread-9] c.n.e.r.PeerAwareInstanceRegistryImpl    : Changing status to UP
+2026-03-27T19:05:26.061+05:30  INFO 87012 --- [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8761 (http) with context path '/'
+2026-03-27T19:05:26.070+05:30  INFO 87012 --- [           main] c.example.demo.EurekaServerApplication   : Started EurekaServerApplication in 2.009 seconds (process running for 2.314)
+2026-03-27T19:05:26.096+05:30  INFO 87012 --- [           main] c.example.demo.EurekaServerApplication   : FounderLink Eureka Discovery Server started succefully!
+2026-03-27T19:05:36.623+05:30  INFO 87012 --- [nio-8761-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-03-27T19:05:36.623+05:30  INFO 87012 --- [nio-8761-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-03-27T19:05:36.624+05:30  INFO 87012 --- [nio-8761-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-03-27T19:05:36.827+05:30  INFO 87012 --- [nio-8761-exec-2] c.n.e.registry.AbstractInstanceRegistry  : Registered instance CONFIG-SERVER/192.168.249.133:config-server:8888 with status UP (replication=false)
+2026-03-27T19:05:55.609+05:30  INFO 87012 --- [nio-8761-exec-4] c.n.e.registry.AbstractInstanceRegistry  : Registered instance AUTH-SERVICE/192.168.249.133:auth-service:8081 with status UP (replication=false)
+2026-03-27T19:05:56.238+05:30  INFO 87012 --- [nio-8761-exec-6] c.n.e.registry.AbstractInstanceRegistry  : Registered instance USER-SERVICE/192.168.249.133:user-service:8082 with status UP (replication=false)
+2026-03-27T19:06:18.565+05:30  INFO 87012 --- [io-8761-exec-10] c.n.e.registry.AbstractInstanceRegistry  : Registered instance STARTUP-SERVICE/192.168.249.133:startup-service:8083 with status UP (replication=false)
+2026-03-27T19:06:22.505+05:30  INFO 87012 --- [nio-8761-exec-3] c.n.e.registry.AbstractInstanceRegistry  : Registered instance INVESTMENT-SERVICE/192.168.249.133:investment-service:8084 with status UP (replication=false)
+2026-03-27T19:06:22.578+05:30  INFO 87012 --- [nio-8761-exec-4] c.n.e.registry.AbstractInstanceRegistry  : Registered instance NOTIFICATION-SERVICE/192.168.249.133:notification-service:8087 with status UP (replication=false)
+2026-03-27T19:06:23.540+05:30  INFO 87012 --- [nio-8761-exec-6] c.n.e.registry.AbstractInstanceRegistry  : Registered instance MESSAGING-SERVICE/192.168.249.133:messaging-service:8086 with status UP (replication=false)
+2026-03-27T19:06:24.269+05:30  INFO 87012 --- [nio-8761-exec-8] c.n.e.registry.AbstractInstanceRegistry  : Registered instance TEAM-SERVICE/192.168.249.133:team-service:8085 with status UP (replication=false)
+2026-03-27T19:06:25.264+05:30  INFO 87012 --- [io-8761-exec-10] c.n.e.registry.AbstractInstanceRegistry  : Registered instance API-GATEWAY/192.168.249.133:api-gateway:8080 with status UP (replication=false)
+2026-03-27T19:06:26.054+05:30  INFO 87012 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-27T19:07:26.055+05:30  INFO 87012 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-27T19:08:26.054+05:30  INFO 87012 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-27T19:09:26.055+05:30  INFO 87012 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-27T19:10:26.055+05:30  INFO 87012 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-27T19:11:26.055+05:30  INFO 87012 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-27T19:12:26.055+05:30  INFO 87012 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-27T19:13:26.056+05:30  INFO 87012 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-27T19:14:26.056+05:30  INFO 87012 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-27T19:15:26.015+05:30  WARN 87012 --- [eerNodesUpdater] c.n.eureka.cluster.PeerEurekaNodes       : The replica size seems to be empty. Check the route 53 DNS Registry
+2026-03-27T19:15:26.056+05:30  INFO 87012 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-27T19:16:26.057+05:30  INFO 87012 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-27T19:17:26.057+05:30  INFO 87012 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-27T19:17:34.913+05:30  INFO 87012 --- [ionShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-27T19:17:34.918+05:30  INFO 87012 --- [nio-8761-exec-1] c.n.e.registry.AbstractInstanceRegistry  : Registered instance STARTUP-SERVICE/192.168.249.133:startup-service:8083 with status DOWN (replication=false)
+2026-03-27T19:17:34.923+05:30  INFO 87012 --- [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-03-27T19:17:34.930+05:30  INFO 87012 --- [ionShutdownHook] c.n.eureka.DefaultEurekaServerContext    : Shutting down ...
+2026-03-27T19:17:34.931+05:30  INFO 87012 --- [ionShutdownHook] c.n.eureka.DefaultEurekaServerContext    : Shut down
+2026-03-27T19:17:34.934+05:30  INFO 87012 --- [ionShutdownHook] c.n.eureka.DefaultEurekaServerContext    : Shutting down ...
+2026-03-27T19:17:34.934+05:30  INFO 87012 --- [ionShutdownHook] c.n.eureka.DefaultEurekaServerContext    : Shut down
+2026-03-27T19:17:34.946+05:30  INFO 87012 --- [ionShutdownHook] com.netflix.discovery.DiscoveryClient    : Shutting down DiscoveryClient ...
+2026-03-27T19:17:34.946+05:30  INFO 87012 --- [ionShutdownHook] com.netflix.discovery.DiscoveryClient    : Completed shut down of DiscoveryClient
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  12:12 min
+[INFO] Finished at: 2026-03-27T19:17:35+05:30
+[INFO] ------------------------------------------------------------------------

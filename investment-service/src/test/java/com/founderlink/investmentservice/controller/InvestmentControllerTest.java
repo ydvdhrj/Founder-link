@@ -10,6 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.founderlink.investmentservice.entity.Investment;
 import com.founderlink.investmentservice.entity.InvestmentStatus;
+import com.founderlink.investmentservice.security.JwtAuthenticationFilter;
 import com.founderlink.investmentservice.service.InvestmentService;
 import java.util.List;
 import java.util.UUID;
@@ -30,6 +31,9 @@ class InvestmentControllerTest {
 
 	@MockitoBean
 	private InvestmentService investmentService;
+
+	@MockitoBean
+	private JwtAuthenticationFilter jwtAuthenticationFilter;
 
 	@Test
 	void byStartup_shouldReturn200_whenInvestmentsExist() throws Exception {

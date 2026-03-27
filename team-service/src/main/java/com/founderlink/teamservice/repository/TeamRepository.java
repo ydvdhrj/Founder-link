@@ -11,4 +11,6 @@ public interface TeamRepository extends JpaRepository<TeamMember, UUID> {
 	List<TeamMember> findByStartupId(String startupId);
 
 	Optional<TeamMember> findByIdAndUserId(UUID id, String userId);
+
+	boolean existsByStartupIdAndUserId(String startupId, String userId);
 }

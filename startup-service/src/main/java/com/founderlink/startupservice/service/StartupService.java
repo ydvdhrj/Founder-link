@@ -33,6 +33,11 @@ public class StartupService {
 
 	@Transactional
 	public Startup createStartup(CreateStartupRequest request, String founderId) {
+		if (startupRepository.existsByNameAndFounderId(request.getName(), founderId)) {
+			throw new BusinessValidationException(
+					"You already have a startup named '" + request.getName() + "'");
+		}
+
 		Startup startup = Startup.builder()
 				.name(request.getName())
 				.description(request.getDescription())
