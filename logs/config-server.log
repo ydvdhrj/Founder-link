@@ -2921,3 +2921,8 @@ Caused by: org.eclipse.jgit.api.errors.RefNotFoundException: Ref main cannot be 
 2026-03-27T20:58:04.472+05:30  WARN 99866 --- [config-server] [nio-8888-exec-3] .c.s.e.MultipleJGitEnvironmentRepository : Could not reset to remote for master (current ref=refs/remotes/origin/master), remote: null
 2026-03-27T20:58:04.476+05:30  INFO 99866 --- [config-server] [nio-8888-exec-3] o.s.c.c.s.e.NativeEnvironmentRepository  : Adding property source: Config resource 'file [/home/dheeraj/Desktop/FounderLink/founderlink-config-repo/api-gateway.yml]' via location 'file:/home/dheeraj/Desktop/FounderLink/founderlink-config-repo/'
 2026-03-27T20:59:53.220+05:30  INFO 99866 --- [config-server] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-03-27T21:04:53.221+05:30  INFO 99866 --- [config-server] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-03-27T21:09:53.223+05:30  INFO 99866 --- [config-server] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-03-27T21:14:53.224+05:30  INFO 99866 --- [config-server] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-03-27T21:19:53.225+05:30  INFO 99866 --- [config-server] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-03-27T21:24:53.226+05:30  INFO 99866 --- [config-server] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration

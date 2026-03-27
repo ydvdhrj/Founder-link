@@ -180,16 +180,17 @@ Raw payload: {amount=19000.0, investmentId=23e37bbe-432c-485b-ae30-c8796173cab1,
  161117 --- [notification-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
 2026-03-27T20:59:57.736+05:30 2026-03-27 20:59:57 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - [,] - Resolving eureka endpoints via configuration
  161117 --- [notification-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-vice] [ntContainer#1-2] o.s.a.r.l.SimpleMessageListenerContainer : Waiting for workers to finish.
-2026-03-27T20:49:52.245+05:30 2026-03-27 20:49:52 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#2-2] INFO  o.s.a.r.l.SimpleMessageListenerContainer - [,] - Waiting for workers to finish.
- 158643 --- [notification-service] [ntContainer#2-2] o.s.a.r.l.SimpleMessageListenerContainer : Waiting for workers to finish.
-2026-03-27T20:49:52.246+05:30 2026-03-27 20:49:52 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#3-2] INFO  o.s.a.r.l.SimpleMessageListenerContainer - [,] - Waiting for workers to finish.
- 158643 --- [notification-service] [ntContainer#3-2] o.s.a.r.l.SimpleMessageListenerContainer : Waiting for workers to finish.
-2026-03-27T20:49:52.247+05:30 2026-03-27 20:49:52 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#4-2] INFO  o.s.a.r.l.SimpleMessageListenerContainer - [,] - Waiting for workers to finish.
- 158643 --- [notification-service] [ntContainer#4-2] o.s.a.r.l.SimpleMessageListenerContainer : Waiting for workers to finish.
-2026-03-27T20:49:52.629+05:30 2026-03-27 20:49:52 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#2-2] INFO  o.s.a.r.l.SimpleMessageListenerContainer - [,] - Successfully waited for workers to finish.
- 158643 --- [notification-service] [ntContainer#2-2] o.s.a.r.l.SimpleMessageListenerContainer : Successfully waited for workers to finish.
-2026-03-27T20:49:52.682+05:30 2026-03-27 20:49:52 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#1-2] INFO  o.s.a.r.l.SimpleMessageListenerContainer - [,] - Successfully waited for workers to finish.
+2026-03-27T21:04:57.738+05:30 2026-03-27 21:04:57 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - [,] - Resolving eureka endpoints via configuration
+ 161117 --- [notification-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-03-27T21:09:57.740+05:30 2026-03-27 21:09:57 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - [,] - Resolving eureka endpoints via configuration
+ 161117 --- [notification-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-03-27T21:14:57.742+05:30 2026-03-27 21:14:57 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - [,] - Resolving eureka endpoints via configuration
+ 161117 --- [notification-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-03-27T21:19:57.743+05:30 2026-03-27 21:19:57 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - [,] - Resolving eureka endpoints via configuration
+ 161117 --- [notification-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-03-27T21:24:57.744+05:30 2026-03-27 21:24:57 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - [,] - Resolving eureka endpoints via configuration
+ 161117 --- [notification-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+ - [,] - Successfully waited for workers to finish.
  158643 --- [notification-service] [ntContainer#1-2] o.s.a.r.l.SimpleMessageListenerContainer : Successfully waited for workers to finish.
 2026-03-27T20:49:52.925+05:30 2026-03-27 20:49:52 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] INFO  o.s.a.r.l.SimpleMessageListenerContainer - [,] - Successfully waited for workers to finish.
  158643 --- [notification-service] [ntContainer#0-2] o.s.a.r.l.SimpleMessageListenerContainer : Successfully waited for workers to finish.

@@ -182,18 +182,17 @@ Hibernate: select p1_0.id,p1_0.bio,p1_0.created_at,p1_0.email,p1_0.experience,p1
  151004 --- [user-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
 2026-03-27T20:59:19.997+05:30 2026-03-27 20:59:19 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - [,] - Resolving eureka endpoints via configuration
  151004 --- [user-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
- 'default'
-2026-03-27T20:34:13.585+05:30 2026-03-27 20:34:13 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - [,] - HikariPool-1 - Shutdown initiated...
- 147634 --- [user-service] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2026-03-27T20:34:13.587+05:30 2026-03-27 20:34:13 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - [,] - HikariPool-1 - Shutdown completed.
- 147634 --- [user-service] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2026-03-27T20:34:13.588+05:30 2026-03-27 20:34:13 [SpringApplicationShutdownHook] INFO  c.netflix.discovery.DiscoveryClient - [,] - Shutting down DiscoveryClient ...
- 147634 --- [user-service] [ionShutdownHook] com.netflix.discovery.DiscoveryClient    : Shutting down DiscoveryClient ...
-2026-03-27T20:34:16.589+05:30 2026-03-27 20:34:16 [SpringApplicationShutdownHook] INFO  c.netflix.discovery.DiscoveryClient - [,] - Unregistering ...
- 147634 --- [user-service] [ionShutdownHook] com.netflix.discovery.DiscoveryClient    : Unregistering ...
-2026-03-27T20:34:16.593+05:30 2026-03-27 20:34:16 [SpringApplicationShutdownHook] INFO  c.netflix.discovery.DiscoveryClient - [,] - DiscoveryClient_USER-SERVICE/192.168.249.133:user-service:8082 - deregister  status: 200
- 147634 --- [user-service] [ionShutdownHook] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_USER-SERVICE/192.168.249.133:user-service:8082 - deregister  status: 200
-2026-03-27T20:34:16.594+05:30 2026-03-27 20:34:16 [SpringApplicationShutdownHook] INFO  c.netflix.discovery.DiscoveryClient - [,] - Completed shut down of DiscoveryClient
+2026-03-27T21:04:19.999+05:30 2026-03-27 21:04:19 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - [,] - Resolving eureka endpoints via configuration
+ 151004 --- [user-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-03-27T21:09:20.000+05:30 2026-03-27 21:09:20 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - [,] - Resolving eureka endpoints via configuration
+ 151004 --- [user-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-03-27T21:14:20.002+05:30 2026-03-27 21:14:20 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - [,] - Resolving eureka endpoints via configuration
+ 151004 --- [user-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-03-27T21:19:20.003+05:30 2026-03-27 21:19:20 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - [,] - Resolving eureka endpoints via configuration
+ 151004 --- [user-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-03-27T21:24:20.004+05:30 2026-03-27 21:24:20 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - [,] - Resolving eureka endpoints via configuration
+ 151004 --- [user-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+4:16 [SpringApplicationShutdownHook] INFO  c.netflix.discovery.DiscoveryClient - [,] - Completed shut down of DiscoveryClient
  147634 --- [user-service] [ionShutdownHook] com.netflix.discovery.DiscoveryClient    : Completed shut down of DiscoveryClient
 [[1;34mINFO[m] [1m------------------------------------------------------------------------[m
 [[1;34mINFO[m] [1;31mBUILD FAILURE[m

@@ -128,13 +128,17 @@
  165855 --- [api-gateway] [           main] o.s.core.events.SpringDocAppInitializer  : SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
 2026-03-27T20:58:08.057+05:30 2026-03-27 20:58:08 [main] INFO  c.f.apigateway.ApiGatewayApplication - [,] - FounderLink API Gateway (reactive) started on port 8080
  165855 --- [api-gateway] [           main] c.f.apigateway.ApiGatewayApplication     : FounderLink API Gateway (reactive) started on port 8080
-                                                                                                                                                                                                                                                                                                                           2026-03-27T20:58:01.456+05:30 2026-03-27 20:58:01 [SpringApplicationShutdownHook] INFO  o.s.c.n.e.s.EurekaServiceRegistry - [,] - Unregistering application API-GATEWAY with eureka with status DOWN
- 162402 --- [api-gateway] [ionShutdownHook] o.s.c.n.e.s.EurekaServiceRegistry        : Unregistering application API-GATEWAY with eureka with status DOWN
-2026-03-27T20:58:01.456+05:30 2026-03-27 20:58:01 [SpringApplicationShutdownHook] INFO  c.netflix.discovery.DiscoveryClient - [,] - Saw local status change event StatusChangeEvent [timestamp=1774625281456, current=DOWN, previous=UP]
- 162402 --- [api-gateway] [ionShutdownHook] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1774625281456, current=DOWN, previous=UP]
-2026-03-27T20:58:01.456+05:30 2026-03-27 20:58:01 [DiscoveryClient-InstanceInfoReplicator-%d] INFO  c.netflix.discovery.DiscoveryClient - [,] - DiscoveryClient_API-GATEWAY/192.168.249.133:api-gateway:8080: registering service...
- 162402 --- [api-gateway] [foReplicator-%d] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_API-GATEWAY/192.168.249.133:api-gateway:8080: registering service...
-2026-03-27T20:58:01.459+05:30 2026-03-27 20:58:01 [SpringApplicationShutdownHook] INFO  o.s.b.reactor.netty.GracefulShutdown - [,] - Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-27T21:03:07.607+05:30 2026-03-27 21:03:07 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - [,] - Resolving eureka endpoints via configuration
+ 165855 --- [api-gateway] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-03-27T21:08:07.609+05:30 2026-03-27 21:08:07 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - [,] - Resolving eureka endpoints via configuration
+ 165855 --- [api-gateway] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-03-27T21:13:07.610+05:30 2026-03-27 21:13:07 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - [,] - Resolving eureka endpoints via configuration
+ 165855 --- [api-gateway] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-03-27T21:18:07.611+05:30 2026-03-27 21:18:07 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - [,] - Resolving eureka endpoints via configuration
+ 165855 --- [api-gateway] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-03-27T21:23:07.614+05:30 2026-03-27 21:23:07 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - [,] - Resolving eureka endpoints via configuration
+ 165855 --- [api-gateway] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+ o.s.b.reactor.netty.GracefulShutdown - [,] - Commencing graceful shutdown. Waiting for active requests to complete
  162402 --- [api-gateway] [ionShutdownHook] o.s.boot.reactor.netty.GracefulShutdown  : Commencing graceful shutdown. Waiting for active requests to complete
 2026-03-27T20:58:01.461+05:30 2026-03-27 20:58:01 [DiscoveryClient-InstanceInfoReplicator-%d] INFO  c.netflix.discovery.DiscoveryClient - [,] - DiscoveryClient_API-GATEWAY/192.168.249.133:api-gateway:8080 - registration status: 204
  162402 --- [api-gateway] [foReplicator-%d] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_API-GATEWAY/192.168.249.133:api-gateway:8080 - registration status: 204

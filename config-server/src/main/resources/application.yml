@@ -8,8 +8,7 @@ spring:
     config:
       server:
         git:
-          uri: file://${user.home}/Desktop/FounderLink/founderlink-config-repo
-
+          uri: https://github.com/ydvdhrj/founderlink-config-repo.git
 eureka:
   client:
     service-url:
