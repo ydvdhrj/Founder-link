@@ -1,42 +1,328 @@
-version: '3.8'
-
 services:
   founderlink-postgres:
     image: postgres:15-alpine
     container_name: founderlink-postgres
-    restart: always
-    ports:
-      - "5433:5432"
+    restart: unless-stopped
     environment:
       POSTGRES_USER: dheeraj
       POSTGRES_PASSWORD: password123
-      POSTGRES_DB: startups_db 
+      POSTGRES_DB: postgres
+    ports:
+      - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
   founderlink-mongo:
     image: mongo:6.0
     container_name: founderlink-mongo
-    restart: always
+    restart: unless-stopped
     ports:
       - "27017:27017"
     volumes:
       - mongo_data:/data/db
 
   founderlink-rabbitmq:
-    image: rabbitmq:3-management-alpine # Includes the web UI dashboard
+    image: rabbitmq:3-management-alpine
     container_name: founderlink-rabbitmq
-    restart: always
+    restart: unless-stopped
     ports:
-      - "5672:5672"   # The port your microservices use to send messages
-      - "15672:15672" # The web UI port (http://localhost:15672)
+      - "5672:5672"
+      - "15672:15672"
 
   founderlink-zipkin:
     image: openzipkin/zipkin
     container_name: founderlink-zipkin
-    restart: always
+    restart: unless-stopped
     ports:
       - "9411:9411"
+
+  eureka-server:
+    build:
+      context: ./eureka-server
+    container_name: founderlink-eureka-server
+    restart: unless-stopped
+    depends_on:
+      founderlink-zipkin:
+        condition: service_started
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      CONFIG_SERVER_URL: http://config-server:8888
+      MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://founderlink-zipkin:9411/api/v2/spans
+    ports:
+      - "8761:8761"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:8761/actuator/health | grep -q '\"status\"'"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 20s
+
+  config-server:
+    build:
+      context: ./config-server
+    container_name: founderlink-config-server
+    restart: unless-stopped
+    depends_on:
+      eureka-server:
+        condition: service_healthy
+      founderlink-zipkin:
+        condition: service_started
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      CONFIG_SERVER_URL: http://config-server:8888
+      SPRING_CLOUD_CONFIG_SERVER_GIT_URI: https://github.com/ydvdhrj/founderlink-config-repo.git
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+      MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://founderlink-zipkin:9411/api/v2/spans
+    ports:
+      - "8888:8888"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:8888/actuator/health | grep -q '\"status\"'"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 20s
+
+  auth-service:
+    build:
+      context: ./auth-service
+    container_name: founderlink-auth-service
+    restart: unless-stopped
+    depends_on:
+      config-server:
+        condition: service_healthy
+      eureka-server:
+        condition: service_healthy
+      founderlink-postgres:
+        condition: service_started
+      founderlink-rabbitmq:
+        condition: service_started
+      founderlink-zipkin:
+        condition: service_started
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      CONFIG_SERVER_URL: http://config-server:8888
+      SPRING_CLOUD_CONFIG_URI: http://config-server:8888
+      SPRING_CONFIG_IMPORT: optional:configserver:http://config-server:8888
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+      EUREKA_INSTANCE_PREFER_IP_ADDRESS: "true"
+      SPRING_DATASOURCE_URL: jdbc:postgresql://founderlink-postgres:5432/auth_db
+      SPRING_RABBITMQ_HOST: founderlink-rabbitmq
+      MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://founderlink-zipkin:9411/api/v2/spans
+    ports:
+      - "8081:8081"
+
+  user-service:
+    build:
+      context: ./user-service
+    container_name: founderlink-user-service
+    restart: unless-stopped
+    depends_on:
+      config-server:
+        condition: service_healthy
+      eureka-server:
+        condition: service_healthy
+      founderlink-postgres:
+        condition: service_started
+      founderlink-rabbitmq:
+        condition: service_started
+      founderlink-zipkin:
+        condition: service_started
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      CONFIG_SERVER_URL: http://config-server:8888
+      SPRING_CLOUD_CONFIG_URI: http://config-server:8888
+      SPRING_CONFIG_IMPORT: optional:configserver:http://config-server:8888
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+      EUREKA_INSTANCE_PREFER_IP_ADDRESS: "true"
+      SPRING_DATASOURCE_URL: jdbc:postgresql://founderlink-postgres:5432/users_db
+      SPRING_RABBITMQ_HOST: founderlink-rabbitmq
+      MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://founderlink-zipkin:9411/api/v2/spans
+    ports:
+      - "8082:8082"
+
+  startup-service:
+    build:
+      context: ./startup-service
+    container_name: founderlink-startup-service
+    restart: unless-stopped
+    depends_on:
+      config-server:
+        condition: service_healthy
+      eureka-server:
+        condition: service_healthy
+      founderlink-postgres:
+        condition: service_started
+      founderlink-rabbitmq:
+        condition: service_started
+      founderlink-zipkin:
+        condition: service_started
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      CONFIG_SERVER_URL: http://config-server:8888
+      SPRING_CLOUD_CONFIG_URI: http://config-server:8888
+      SPRING_CONFIG_IMPORT: optional:configserver:http://config-server:8888
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+      EUREKA_INSTANCE_PREFER_IP_ADDRESS: "true"
+      SPRING_DATASOURCE_URL: jdbc:postgresql://founderlink-postgres:5432/startups_db
+      SPRING_RABBITMQ_HOST: founderlink-rabbitmq
+      MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://founderlink-zipkin:9411/api/v2/spans
+    ports:
+      - "8083:8083"
+
+  investment-service:
+    build:
+      context: ./investment-service
+    container_name: founderlink-investment-service
+    restart: unless-stopped
+    depends_on:
+      config-server:
+        condition: service_healthy
+      eureka-server:
+        condition: service_healthy
+      founderlink-postgres:
+        condition: service_started
+      founderlink-rabbitmq:
+        condition: service_started
+      founderlink-zipkin:
+        condition: service_started
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      CONFIG_SERVER_URL: http://config-server:8888
+      SPRING_CLOUD_CONFIG_URI: http://config-server:8888
+      SPRING_CONFIG_IMPORT: optional:configserver:http://config-server:8888
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+      EUREKA_INSTANCE_PREFER_IP_ADDRESS: "true"
+      SPRING_DATASOURCE_URL: jdbc:postgresql://founderlink-postgres:5432/investments_db
+      SPRING_RABBITMQ_HOST: founderlink-rabbitmq
+      MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://founderlink-zipkin:9411/api/v2/spans
+    ports:
+      - "8084:8084"
+
+  team-service:
+    build:
+      context: ./team-service
+    container_name: founderlink-team-service
+    restart: unless-stopped
+    depends_on:
+      config-server:
+        condition: service_healthy
+      eureka-server:
+        condition: service_healthy
+      founderlink-postgres:
+        condition: service_started
+      founderlink-rabbitmq:
+        condition: service_started
+      founderlink-zipkin:
+        condition: service_started
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      CONFIG_SERVER_URL: http://config-server:8888
+      SPRING_CLOUD_CONFIG_URI: http://config-server:8888
+      SPRING_CONFIG_IMPORT: optional:configserver:http://config-server:8888
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+      EUREKA_INSTANCE_PREFER_IP_ADDRESS: "true"
+      SPRING_DATASOURCE_URL: jdbc:postgresql://founderlink-postgres:5432/teams_db
+      SPRING_RABBITMQ_HOST: founderlink-rabbitmq
+      MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://founderlink-zipkin:9411/api/v2/spans
+    ports:
+      - "8085:8085"
+
+  messaging-service:
+    build:
+      context: ./messaging-service
+    container_name: founderlink-messaging-service
+    restart: unless-stopped
+    depends_on:
+      config-server:
+        condition: service_healthy
+      eureka-server:
+        condition: service_healthy
+      founderlink-mongo:
+        condition: service_started
+      founderlink-rabbitmq:
+        condition: service_started
+      founderlink-zipkin:
+        condition: service_started
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      CONFIG_SERVER_URL: http://config-server:8888
+      SPRING_CLOUD_CONFIG_URI: http://config-server:8888
+      SPRING_CONFIG_IMPORT: optional:configserver:http://config-server:8888
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+      EUREKA_INSTANCE_PREFER_IP_ADDRESS: "true"
+      SPRING_DATA_MONGODB_URI: mongodb://founderlink-mongo:27017/messaging_db
+      SPRING_RABBITMQ_HOST: founderlink-rabbitmq
+      MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://founderlink-zipkin:9411/api/v2/spans
+    ports:
+      - "8086:8086"
+
+  notification-service:
+    build:
+      context: ./notification-service
+    container_name: founderlink-notification-service
+    restart: unless-stopped
+    depends_on:
+      config-server:
+        condition: service_healthy
+      eureka-server:
+        condition: service_healthy
+      founderlink-rabbitmq:
+        condition: service_started
+      founderlink-zipkin:
+        condition: service_started
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      CONFIG_SERVER_URL: http://config-server:8888
+      SPRING_CLOUD_CONFIG_URI: http://config-server:8888
+      SPRING_CONFIG_IMPORT: optional:configserver:http://config-server:8888
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+      EUREKA_INSTANCE_PREFER_IP_ADDRESS: "true"
+      SPRING_RABBITMQ_HOST: founderlink-rabbitmq
+      MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://founderlink-zipkin:9411/api/v2/spans
+    ports:
+      - "8087:8087"
+
+  api-gateway:
+    build:
+      context: ./api-gateway
+    container_name: founderlink-api-gateway
+    restart: unless-stopped
+    depends_on:
+      config-server:
+        condition: service_healthy
+      eureka-server:
+        condition: service_healthy
+      auth-service:
+        condition: service_started
+      user-service:
+        condition: service_started
+      startup-service:
+        condition: service_started
+      investment-service:
+        condition: service_started
+      team-service:
+        condition: service_started
+      messaging-service:
+        condition: service_started
+      notification-service:
+        condition: service_started
+      founderlink-zipkin:
+        condition: service_started
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      CONFIG_SERVER_URL: http://config-server:8888
+      SPRING_CLOUD_CONFIG_URI: http://config-server:8888
+      SPRING_CONFIG_IMPORT: optional:configserver:http://config-server:8888
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+      MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://founderlink-zipkin:9411/api/v2/spans
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:8080/swagger-ui/index.html > /dev/null"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 25s
 
 volumes:
   postgres_data:
