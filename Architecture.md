@@ -268,7 +268,7 @@ Architectural note:
 - **Runtime tracing config (externalized YAML):**
   - `management.tracing.enabled: true`
   - `management.tracing.sampling.probability: 1.0`
-  - `management.zipkin.tracing.endpoint: http://localhost:9411/api/v2/spans`
+  - `management.tracing.export.zipkin.endpoint: http://localhost:9411/api/v2/spans`
 - **Log correlation pattern:**
   - Trace/span fields embedded in log pattern with `%X{traceId}` and `%X{spanId}` for cross-service request correlation.
 

@@ -35,268 +35,105 @@
 
  :: Spring Boot ::                (v4.0.4)
 
-2026-03-27T19:19:40.658+05:30  INFO 99455 --- [           main] c.example.demo.EurekaServerApplication   : Starting EurekaServerApplication using Java 17.0.18 with PID 99455 (/home/dheeraj/Desktop/FounderLink/eureka-server/target/classes started by dheeraj in /home/dheeraj/Desktop/FounderLink/eureka-server)
-2026-03-27T19:19:40.661+05:30  INFO 99455 --- [           main] c.example.demo.EurekaServerApplication   : No active profile set, falling back to 1 default profile: "default"
-2026-03-27T19:19:41.577+05:30  INFO 99455 --- [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8761 (http)
-2026-03-27T19:19:41.585+05:30  INFO 99455 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2026-03-27T19:19:41.585+05:30  INFO 99455 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
-2026-03-27T19:19:41.622+05:30  INFO 99455 --- [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 925 ms
-2026-03-27T19:19:42.232+05:30  INFO 99455 --- [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using JSON encoding codec LegacyJacksonJson
-2026-03-27T19:19:42.232+05:30  INFO 99455 --- [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using JSON decoding codec LegacyJacksonJson
-2026-03-27T19:19:42.330+05:30  INFO 99455 --- [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using XML encoding codec XStreamXml
-2026-03-27T19:19:42.331+05:30  INFO 99455 --- [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using XML decoding codec XStreamXml
-2026-03-27T19:19:42.437+05:30  INFO 99455 --- [           main] o.s.v.b.OptionalValidatorFactoryBean     : Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
-2026-03-27T19:19:42.869+05:30  WARN 99455 --- [           main] iguration$LoadBalancerCaffeineWarnLogger : Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
-2026-03-27T19:19:42.895+05:30  INFO 99455 --- [           main] com.netflix.discovery.DiscoveryClient    : Initializing Eureka in region us-east-1
-2026-03-27T19:19:42.895+05:30  INFO 99455 --- [           main] com.netflix.discovery.DiscoveryClient    : Client configured to neither register nor query for data.
-2026-03-27T19:19:42.897+05:30  INFO 99455 --- [           main] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1774619382896 with initial instances count: 0
-2026-03-27T19:19:42.920+05:30  INFO 99455 --- [           main] c.n.eureka.DefaultEurekaServerContext    : Initializing ...
-2026-03-27T19:19:42.921+05:30  WARN 99455 --- [           main] c.n.eureka.cluster.PeerEurekaNodes       : The replica size seems to be empty. Check the route 53 DNS Registry
-2026-03-27T19:19:42.928+05:30  INFO 99455 --- [           main] c.n.e.registry.AbstractInstanceRegistry  : Finished initializing remote region registries. All known remote regions: []
-2026-03-27T19:19:42.928+05:30  INFO 99455 --- [           main] c.n.eureka.DefaultEurekaServerContext    : Initialized
-2026-03-27T19:19:42.934+05:30  INFO 99455 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
-2026-03-27T19:19:42.982+05:30  INFO 99455 --- [       Thread-9] c.n.e.r.PeerAwareInstanceRegistryImpl    : Got 1 instances from neighboring DS node
-2026-03-27T19:19:42.982+05:30  INFO 99455 --- [       Thread-9] c.n.e.r.PeerAwareInstanceRegistryImpl    : Renew threshold is: 1
-2026-03-27T19:19:42.982+05:30  INFO 99455 --- [       Thread-9] c.n.e.r.PeerAwareInstanceRegistryImpl    : Changing status to UP
-2026-03-27T19:19:42.984+05:30  INFO 99455 --- [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8761 (http) with context path '/'
-2026-03-27T19:19:42.999+05:30  INFO 99455 --- [           main] c.example.demo.EurekaServerApplication   : Started EurekaServerApplication in 2.707 seconds (process running for 3.054)
-2026-03-27T19:19:43.027+05:30  INFO 99455 --- [           main] c.example.demo.EurekaServerApplication   : FounderLink Eureka Discovery Server started succefully!
-2026-03-27T19:19:53.340+05:30  INFO 99455 --- [nio-8761-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-03-27T19:19:53.341+05:30  INFO 99455 --- [nio-8761-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2026-03-27T19:19:53.342+05:30  INFO 99455 --- [nio-8761-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
-2026-03-27T19:19:53.561+05:30  INFO 99455 --- [nio-8761-exec-2] c.n.e.registry.AbstractInstanceRegistry  : Registered instance CONFIG-SERVER/192.168.249.133:config-server:8888 with status UP (replication=false)
-2026-03-27T19:20:13.315+05:30  INFO 99455 --- [nio-8761-exec-4] c.n.e.registry.AbstractInstanceRegistry  : Registered instance AUTH-SERVICE/192.168.249.133:auth-service:8081 with status UP (replication=false)
-2026-03-27T19:20:18.223+05:30  INFO 99455 --- [nio-8761-exec-6] c.n.e.registry.AbstractInstanceRegistry  : Registered instance USER-SERVICE/192.168.249.133:user-service:8082 with status UP (replication=false)
-2026-03-27T19:20:31.022+05:30  INFO 99455 --- [io-8761-exec-10] c.n.e.registry.AbstractInstanceRegistry  : Registered instance STARTUP-SERVICE/192.168.249.133:startup-service:8083 with status UP (replication=false)
-2026-03-27T19:20:35.178+05:30  INFO 99455 --- [nio-8761-exec-2] c.n.e.registry.AbstractInstanceRegistry  : Registered instance MESSAGING-SERVICE/192.168.249.133:messaging-service:8086 with status UP (replication=false)
-2026-03-27T19:20:35.674+05:30  INFO 99455 --- [nio-8761-exec-5] c.n.e.registry.AbstractInstanceRegistry  : Registered instance INVESTMENT-SERVICE/192.168.249.133:investment-service:8084 with status UP (replication=false)
-2026-03-27T19:20:35.693+05:30  INFO 99455 --- [nio-8761-exec-6] c.n.e.registry.AbstractInstanceRegistry  : Registered instance NOTIFICATION-SERVICE/192.168.249.133:notification-service:8087 with status UP (replication=false)
-2026-03-27T19:20:41.854+05:30  INFO 99455 --- [nio-8761-exec-8] c.n.e.registry.AbstractInstanceRegistry  : Registered instance TEAM-SERVICE/192.168.249.133:team-service:8085 with status UP (replication=false)
-2026-03-27T19:20:42.573+05:30  INFO 99455 --- [io-8761-exec-10] c.n.e.registry.AbstractInstanceRegistry  : Registered instance API-GATEWAY/192.168.249.133:api-gateway:8080 with status UP (replication=false)
-2026-03-27T19:20:42.983+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T19:21:42.984+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T19:22:42.984+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T19:23:42.984+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T19:24:42.984+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T19:25:42.984+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T19:26:42.984+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T19:27:42.984+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T19:28:42.984+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T19:29:42.922+05:30  WARN 99455 --- [eerNodesUpdater] c.n.eureka.cluster.PeerEurekaNodes       : The replica size seems to be empty. Check the route 53 DNS Registry
-2026-03-27T19:29:42.984+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T19:30:42.984+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T19:31:42.984+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T19:32:42.984+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T19:32:45.737+05:30  INFO 99455 --- [nio-8761-exec-7] c.n.e.registry.AbstractInstanceRegistry  : Registered instance TEAM-SERVICE/192.168.249.133:team-service:8085 with status DOWN (replication=false)
-2026-03-27T19:32:48.775+05:30  INFO 99455 --- [nio-8761-exec-1] c.n.e.registry.AbstractInstanceRegistry  : Cancelled instance TEAM-SERVICE/192.168.249.133:team-service:8085 (replication=false)
-2026-03-27T19:33:03.913+05:30  INFO 99455 --- [io-8761-exec-10] c.n.e.registry.AbstractInstanceRegistry  : Registered instance TEAM-SERVICE/192.168.249.133:team-service:8085 with status UP (replication=false)
-2026-03-27T19:33:42.984+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T19:34:25.498+05:30  INFO 99455 --- [nio-8761-exec-3] c.n.e.registry.AbstractInstanceRegistry  : Registered instance TEAM-SERVICE/192.168.249.133:team-service:8085 with status DOWN (replication=false)
-2026-03-27T19:34:28.527+05:30  INFO 99455 --- [nio-8761-exec-2] c.n.e.registry.AbstractInstanceRegistry  : Cancelled instance TEAM-SERVICE/192.168.249.133:team-service:8085 (replication=false)
-2026-03-27T19:34:36.998+05:30  INFO 99455 --- [nio-8761-exec-4] c.n.e.registry.AbstractInstanceRegistry  : Registered instance TEAM-SERVICE/192.168.249.133:team-service:8085 with status UP (replication=false)
-2026-03-27T19:34:42.928+05:30  INFO 99455 --- [hresholdUpdater] c.n.e.r.PeerAwareInstanceRegistryImpl    : Current renewal threshold is : 17
-2026-03-27T19:34:42.984+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T19:35:42.984+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T19:36:42.704+05:30  INFO 99455 --- [nio-8761-exec-9] c.n.e.registry.AbstractInstanceRegistry  : Registered instance TEAM-SERVICE/192.168.249.133:team-service:8085 with status DOWN (replication=false)
-2026-03-27T19:36:42.985+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T19:36:45.738+05:30  INFO 99455 --- [nio-8761-exec-5] c.n.e.registry.AbstractInstanceRegistry  : Cancelled instance TEAM-SERVICE/192.168.249.133:team-service:8085 (replication=false)
-2026-03-27T19:36:54.241+05:30  INFO 99455 --- [nio-8761-exec-3] c.n.e.registry.AbstractInstanceRegistry  : Registered instance TEAM-SERVICE/192.168.249.133:team-service:8085 with status UP (replication=false)
-2026-03-27T19:37:42.985+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T19:38:42.986+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T19:39:35.184+05:30  INFO 99455 --- [nio-8761-exec-9] c.n.e.registry.AbstractInstanceRegistry  : Registered instance TEAM-SERVICE/192.168.249.133:team-service:8085 with status DOWN (replication=false)
-2026-03-27T19:39:38.220+05:30  INFO 99455 --- [nio-8761-exec-8] c.n.e.registry.AbstractInstanceRegistry  : Cancelled instance TEAM-SERVICE/192.168.249.133:team-service:8085 (replication=false)
-2026-03-27T19:39:42.923+05:30  WARN 99455 --- [eerNodesUpdater] c.n.eureka.cluster.PeerEurekaNodes       : The replica size seems to be empty. Check the route 53 DNS Registry
-2026-03-27T19:39:42.986+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T19:39:51.122+05:30  INFO 99455 --- [nio-8761-exec-8] c.n.e.registry.AbstractInstanceRegistry  : Registered instance TEAM-SERVICE/192.168.249.133:team-service:8085 with status UP (replication=false)
-2026-03-27T19:40:42.986+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T19:41:42.986+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T19:42:15.033+05:30  INFO 99455 --- [nio-8761-exec-8] c.n.e.registry.AbstractInstanceRegistry  : Registered instance TEAM-SERVICE/192.168.249.133:team-service:8085 with status DOWN (replication=false)
-2026-03-27T19:42:18.080+05:30  INFO 99455 --- [io-8761-exec-10] c.n.e.registry.AbstractInstanceRegistry  : Cancelled instance TEAM-SERVICE/192.168.249.133:team-service:8085 (replication=false)
-2026-03-27T19:42:31.152+05:30  INFO 99455 --- [nio-8761-exec-7] c.n.e.registry.AbstractInstanceRegistry  : Registered instance TEAM-SERVICE/192.168.249.133:team-service:8085 with status UP (replication=false)
-2026-03-27T19:42:42.986+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T19:43:31.950+05:30  INFO 99455 --- [nio-8761-exec-4] c.n.e.registry.AbstractInstanceRegistry  : Registered instance TEAM-SERVICE/192.168.249.133:team-service:8085 with status DOWN (replication=false)
-2026-03-27T19:43:34.991+05:30  INFO 99455 --- [nio-8761-exec-8] c.n.e.registry.AbstractInstanceRegistry  : Cancelled instance TEAM-SERVICE/192.168.249.133:team-service:8085 (replication=false)
-2026-03-27T19:43:42.986+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T19:43:47.847+05:30  INFO 99455 --- [nio-8761-exec-3] c.n.e.registry.AbstractInstanceRegistry  : Registered instance TEAM-SERVICE/192.168.249.133:team-service:8085 with status UP (replication=false)
-2026-03-27T19:44:42.986+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T19:45:42.986+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T19:46:42.986+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T19:47:42.987+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T19:48:42.988+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T19:49:42.924+05:30  WARN 99455 --- [eerNodesUpdater] c.n.eureka.cluster.PeerEurekaNodes       : The replica size seems to be empty. Check the route 53 DNS Registry
-2026-03-27T19:49:42.929+05:30  INFO 99455 --- [hresholdUpdater] c.n.e.r.PeerAwareInstanceRegistryImpl    : Current renewal threshold is : 17
-2026-03-27T19:49:42.987+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T19:50:42.988+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T19:51:42.988+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T19:52:42.988+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T19:53:42.987+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T19:54:42.987+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T19:55:42.987+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T19:56:42.987+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T19:57:42.987+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T19:58:42.987+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T19:59:42.925+05:30  WARN 99455 --- [eerNodesUpdater] c.n.eureka.cluster.PeerEurekaNodes       : The replica size seems to be empty. Check the route 53 DNS Registry
-2026-03-27T19:59:42.987+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:00:42.987+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:01:42.987+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:02:42.987+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:02:59.140+05:30  INFO 99455 --- [nio-8761-exec-2] c.n.e.registry.AbstractInstanceRegistry  : Registered instance INVESTMENT-SERVICE/192.168.249.133:investment-service:8084 with status DOWN (replication=false)
-2026-03-27T20:03:02.162+05:30  INFO 99455 --- [nio-8761-exec-6] c.n.e.registry.AbstractInstanceRegistry  : Cancelled instance INVESTMENT-SERVICE/192.168.249.133:investment-service:8084 (replication=false)
-2026-03-27T20:03:07.407+05:30  INFO 99455 --- [nio-8761-exec-4] c.n.e.registry.AbstractInstanceRegistry  : Registered instance INVESTMENT-SERVICE/192.168.249.133:investment-service:8084 with status UP (replication=false)
-2026-03-27T20:03:42.987+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:04:42.928+05:30  INFO 99455 --- [hresholdUpdater] c.n.e.r.PeerAwareInstanceRegistryImpl    : Current renewal threshold is : 17
-2026-03-27T20:04:42.987+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:05:42.987+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:06:42.987+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:07:42.987+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:08:02.407+05:30  INFO 99455 --- [io-8761-exec-10] c.n.e.registry.AbstractInstanceRegistry  : Registered instance API-GATEWAY/192.168.249.133:api-gateway:8080 with status DOWN (replication=false)
-2026-03-27T20:08:02.456+05:30  INFO 99455 --- [nio-8761-exec-7] c.n.e.registry.AbstractInstanceRegistry  : Registered instance INVESTMENT-SERVICE/192.168.249.133:investment-service:8084 with status DOWN (replication=false)
-2026-03-27T20:08:05.509+05:30  INFO 99455 --- [nio-8761-exec-3] c.n.e.registry.AbstractInstanceRegistry  : Cancelled instance INVESTMENT-SERVICE/192.168.249.133:investment-service:8084 (replication=false)
-2026-03-27T20:08:07.442+05:30  INFO 99455 --- [nio-8761-exec-6] c.n.e.registry.AbstractInstanceRegistry  : Cancelled instance API-GATEWAY/192.168.249.133:api-gateway:8080 (replication=false)
-2026-03-27T20:08:11.005+05:30  INFO 99455 --- [nio-8761-exec-9] c.n.e.registry.AbstractInstanceRegistry  : Registered instance API-GATEWAY/192.168.249.133:api-gateway:8080 with status UP (replication=false)
-2026-03-27T20:08:13.965+05:30  INFO 99455 --- [nio-8761-exec-2] c.n.e.registry.AbstractInstanceRegistry  : Registered instance INVESTMENT-SERVICE/192.168.249.133:investment-service:8084 with status UP (replication=false)
-2026-03-27T20:08:42.988+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:09:42.927+05:30  WARN 99455 --- [eerNodesUpdater] c.n.eureka.cluster.PeerEurekaNodes       : The replica size seems to be empty. Check the route 53 DNS Registry
-2026-03-27T20:09:42.987+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:10:42.987+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:11:42.987+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:12:42.987+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:13:42.987+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:14:42.988+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:15:15.424+05:30  INFO 99455 --- [nio-8761-exec-3] c.n.e.registry.AbstractInstanceRegistry  : Registered instance INVESTMENT-SERVICE/192.168.249.133:investment-service:8084 with status DOWN (replication=false)
-2026-03-27T20:15:15.426+05:30  INFO 99455 --- [nio-8761-exec-9] c.n.e.registry.AbstractInstanceRegistry  : Registered instance API-GATEWAY/192.168.249.133:api-gateway:8080 with status DOWN (replication=false)
-2026-03-27T20:15:18.473+05:30  INFO 99455 --- [nio-8761-exec-8] c.n.e.registry.AbstractInstanceRegistry  : Cancelled instance INVESTMENT-SERVICE/192.168.249.133:investment-service:8084 (replication=false)
-2026-03-27T20:15:20.462+05:30  INFO 99455 --- [io-8761-exec-10] c.n.e.registry.AbstractInstanceRegistry  : Cancelled instance API-GATEWAY/192.168.249.133:api-gateway:8080 (replication=false)
-2026-03-27T20:15:22.979+05:30  INFO 99455 --- [nio-8761-exec-1] c.n.e.registry.AbstractInstanceRegistry  : Registered instance API-GATEWAY/192.168.249.133:api-gateway:8080 with status UP (replication=false)
-2026-03-27T20:15:28.115+05:30  INFO 99455 --- [nio-8761-exec-6] c.n.e.registry.AbstractInstanceRegistry  : Registered instance INVESTMENT-SERVICE/192.168.249.133:investment-service:8084 with status UP (replication=false)
-2026-03-27T20:15:42.988+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:16:42.988+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:17:42.989+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:18:42.989+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:19:42.928+05:30  INFO 99455 --- [hresholdUpdater] c.n.e.r.PeerAwareInstanceRegistryImpl    : Current renewal threshold is : 17
-2026-03-27T20:19:42.928+05:30  WARN 99455 --- [eerNodesUpdater] c.n.eureka.cluster.PeerEurekaNodes       : The replica size seems to be empty. Check the route 53 DNS Registry
-2026-03-27T20:19:42.989+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:20:18.947+05:30  INFO 99455 --- [nio-8761-exec-9] c.n.e.registry.AbstractInstanceRegistry  : Registered instance MESSAGING-SERVICE/192.168.249.133:messaging-service:8086 with status DOWN (replication=false)
-2026-03-27T20:20:21.971+05:30  INFO 99455 --- [nio-8761-exec-3] c.n.e.registry.AbstractInstanceRegistry  : Cancelled instance MESSAGING-SERVICE/192.168.249.133:messaging-service:8086 (replication=false)
-2026-03-27T20:20:24.904+05:30  INFO 99455 --- [io-8761-exec-10] c.n.e.registry.AbstractInstanceRegistry  : Registered instance MESSAGING-SERVICE/192.168.249.133:messaging-service:8086 with status UP (replication=false)
-2026-03-27T20:20:42.989+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:21:42.989+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:21:57.859+05:30  INFO 99455 --- [nio-8761-exec-4] c.n.e.registry.AbstractInstanceRegistry  : Registered instance MESSAGING-SERVICE/192.168.249.133:messaging-service:8086 with status DOWN (replication=false)
-2026-03-27T20:21:57.865+05:30  INFO 99455 --- [nio-8761-exec-6] c.n.e.registry.AbstractInstanceRegistry  : Registered instance MESSAGING-SERVICE/192.168.249.133:messaging-service:8086 with status DOWN (replication=false)
-2026-03-27T20:21:57.868+05:30  INFO 99455 --- [nio-8761-exec-7] c.n.e.registry.AbstractInstanceRegistry  : Cancelled instance MESSAGING-SERVICE/192.168.249.133:messaging-service:8086 (replication=false)
-2026-03-27T20:22:24.898+05:30  WARN 99455 --- [nio-8761-exec-6] c.n.e.registry.AbstractInstanceRegistry  : DS: Registry: lease doesn't exist, registering resource: MESSAGING-SERVICE - 192.168.249.133:messaging-service:8086
-2026-03-27T20:22:24.898+05:30  WARN 99455 --- [nio-8761-exec-6] c.n.eureka.resources.InstanceResource    : Not Found (Renew): MESSAGING-SERVICE - 192.168.249.133:messaging-service:8086
-2026-03-27T20:22:24.949+05:30  INFO 99455 --- [io-8761-exec-10] c.n.e.registry.AbstractInstanceRegistry  : Registered instance MESSAGING-SERVICE/192.168.249.133:messaging-service:8086 with status UP (replication=false)
-2026-03-27T20:22:42.989+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:22:49.231+05:30  INFO 99455 --- [nio-8761-exec-5] c.n.e.registry.AbstractInstanceRegistry  : Registered instance MESSAGING-SERVICE/192.168.249.133:messaging-service:8086 with status DOWN (replication=false)
-2026-03-27T20:22:52.257+05:30  INFO 99455 --- [nio-8761-exec-8] c.n.e.registry.AbstractInstanceRegistry  : Cancelled instance MESSAGING-SERVICE/192.168.249.133:messaging-service:8086 (replication=false)
-2026-03-27T20:22:57.371+05:30  INFO 99455 --- [nio-8761-exec-3] c.n.e.registry.AbstractInstanceRegistry  : Registered instance MESSAGING-SERVICE/192.168.249.133:messaging-service:8086 with status UP (replication=false)
-2026-03-27T20:23:42.989+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:24:29.642+05:30  INFO 99455 --- [nio-8761-exec-6] c.n.e.registry.AbstractInstanceRegistry  : Registered instance MESSAGING-SERVICE/192.168.249.133:messaging-service:8086 with status DOWN (replication=false)
-2026-03-27T20:24:32.667+05:30  INFO 99455 --- [nio-8761-exec-3] c.n.e.registry.AbstractInstanceRegistry  : Cancelled instance MESSAGING-SERVICE/192.168.249.133:messaging-service:8086 (replication=false)
-2026-03-27T20:24:35.934+05:30  INFO 99455 --- [nio-8761-exec-2] c.n.e.registry.AbstractInstanceRegistry  : Registered instance MESSAGING-SERVICE/192.168.249.133:messaging-service:8086 with status UP (replication=false)
-2026-03-27T20:24:42.989+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:25:22.422+05:30  INFO 99455 --- [nio-8761-exec-8] c.n.e.registry.AbstractInstanceRegistry  : Registered instance MESSAGING-SERVICE/192.168.249.133:messaging-service:8086 with status DOWN (replication=false)
-2026-03-27T20:25:25.451+05:30  INFO 99455 --- [nio-8761-exec-4] c.n.e.registry.AbstractInstanceRegistry  : Cancelled instance MESSAGING-SERVICE/192.168.249.133:messaging-service:8086 (replication=false)
-2026-03-27T20:25:29.979+05:30  INFO 99455 --- [nio-8761-exec-5] c.n.e.registry.AbstractInstanceRegistry  : Registered instance MESSAGING-SERVICE/192.168.249.133:messaging-service:8086 with status UP (replication=false)
-2026-03-27T20:25:42.990+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:26:42.990+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:27:42.990+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:28:27.891+05:30  INFO 99455 --- [nio-8761-exec-9] c.n.e.registry.AbstractInstanceRegistry  : Registered instance USER-SERVICE/192.168.249.133:user-service:8082 with status DOWN (replication=false)
-2026-03-27T20:28:30.916+05:30  INFO 99455 --- [nio-8761-exec-2] c.n.e.registry.AbstractInstanceRegistry  : Cancelled instance USER-SERVICE/192.168.249.133:user-service:8082 (replication=false)
-2026-03-27T20:28:34.694+05:30  INFO 99455 --- [nio-8761-exec-3] c.n.e.registry.AbstractInstanceRegistry  : Registered instance USER-SERVICE/192.168.249.133:user-service:8082 with status UP (replication=false)
-2026-03-27T20:28:42.990+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:29:42.929+05:30  WARN 99455 --- [eerNodesUpdater] c.n.eureka.cluster.PeerEurekaNodes       : The replica size seems to be empty. Check the route 53 DNS Registry
-2026-03-27T20:29:42.990+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:30:42.990+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:31:42.991+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:32:42.991+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:33:42.991+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:34:13.571+05:30  INFO 99455 --- [nio-8761-exec-1] c.n.e.registry.AbstractInstanceRegistry  : Registered instance USER-SERVICE/192.168.249.133:user-service:8082 with status DOWN (replication=false)
-2026-03-27T20:34:16.593+05:30  INFO 99455 --- [nio-8761-exec-6] c.n.e.registry.AbstractInstanceRegistry  : Cancelled instance USER-SERVICE/192.168.249.133:user-service:8082 (replication=false)
-2026-03-27T20:34:20.220+05:30  INFO 99455 --- [nio-8761-exec-1] c.n.e.registry.AbstractInstanceRegistry  : Registered instance USER-SERVICE/192.168.249.133:user-service:8082 with status UP (replication=false)
-2026-03-27T20:34:42.929+05:30  INFO 99455 --- [hresholdUpdater] c.n.e.r.PeerAwareInstanceRegistryImpl    : Current renewal threshold is : 17
-2026-03-27T20:34:42.991+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:35:42.992+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:36:42.992+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:37:42.992+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:38:42.993+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:39:42.930+05:30  WARN 99455 --- [eerNodesUpdater] c.n.eureka.cluster.PeerEurekaNodes       : The replica size seems to be empty. Check the route 53 DNS Registry
-2026-03-27T20:39:42.992+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:40:42.992+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:41:42.992+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:42:42.993+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:43:42.993+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:44:42.993+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:45:42.994+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:46:42.995+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 1ms
-2026-03-27T20:47:02.699+05:30  INFO 99455 --- [nio-8761-exec-9] c.n.e.registry.AbstractInstanceRegistry  : Registered instance NOTIFICATION-SERVICE/192.168.249.133:notification-service:8087 with status DOWN (replication=false)
-2026-03-27T20:47:06.599+05:30  INFO 99455 --- [nio-8761-exec-8] c.n.e.registry.AbstractInstanceRegistry  : Cancelled instance NOTIFICATION-SERVICE/192.168.249.133:notification-service:8087 (replication=false)
-2026-03-27T20:47:09.809+05:30  INFO 99455 --- [nio-8761-exec-2] c.n.e.registry.AbstractInstanceRegistry  : Registered instance NOTIFICATION-SERVICE/192.168.249.133:notification-service:8087 with status UP (replication=false)
-2026-03-27T20:47:10.854+05:30  INFO 99455 --- [nio-8761-exec-7] c.n.e.registry.AbstractInstanceRegistry  : Registered instance TEAM-SERVICE/192.168.249.133:team-service:8085 with status DOWN (replication=false)
-2026-03-27T20:47:13.891+05:30  INFO 99455 --- [nio-8761-exec-4] c.n.e.registry.AbstractInstanceRegistry  : Cancelled instance TEAM-SERVICE/192.168.249.133:team-service:8085 (replication=false)
-2026-03-27T20:47:20.011+05:30  INFO 99455 --- [nio-8761-exec-5] c.n.e.registry.AbstractInstanceRegistry  : Registered instance INVESTMENT-SERVICE/192.168.249.133:investment-service:8084 with status DOWN (replication=false)
-2026-03-27T20:47:20.014+05:30  INFO 99455 --- [nio-8761-exec-1] c.n.e.registry.AbstractInstanceRegistry  : Registered instance INVESTMENT-SERVICE/192.168.249.133:investment-service:8084 with status DOWN (replication=false)
-2026-03-27T20:47:20.021+05:30  INFO 99455 --- [nio-8761-exec-2] c.n.e.registry.AbstractInstanceRegistry  : Cancelled instance INVESTMENT-SERVICE/192.168.249.133:investment-service:8084 (replication=false)
-2026-03-27T20:47:28.465+05:30  WARN 99455 --- [nio-8761-exec-1] c.n.e.registry.AbstractInstanceRegistry  : DS: Registry: lease doesn't exist, registering resource: INVESTMENT-SERVICE - 192.168.249.133:investment-service:8084
-2026-03-27T20:47:28.466+05:30  WARN 99455 --- [nio-8761-exec-1] c.n.eureka.resources.InstanceResource    : Not Found (Renew): INVESTMENT-SERVICE - 192.168.249.133:investment-service:8084
-2026-03-27T20:47:28.488+05:30  INFO 99455 --- [nio-8761-exec-2] c.n.e.registry.AbstractInstanceRegistry  : Registered instance INVESTMENT-SERVICE/192.168.249.133:investment-service:8084 with status UP (replication=false)
-2026-03-27T20:47:42.995+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:48:11.620+05:30  INFO 99455 --- [nio-8761-exec-6] c.n.e.registry.AbstractInstanceRegistry  : Registered instance INVESTMENT-SERVICE/192.168.249.133:investment-service:8084 with status DOWN (replication=false)
-2026-03-27T20:48:14.661+05:30  INFO 99455 --- [io-8761-exec-10] c.n.e.registry.AbstractInstanceRegistry  : Cancelled instance INVESTMENT-SERVICE/192.168.249.133:investment-service:8084 (replication=false)
-2026-03-27T20:48:22.489+05:30  INFO 99455 --- [nio-8761-exec-9] c.n.e.registry.AbstractInstanceRegistry  : Registered instance INVESTMENT-SERVICE/192.168.249.133:investment-service:8084 with status UP (replication=false)
-2026-03-27T20:48:42.995+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:49:42.930+05:30  INFO 99455 --- [hresholdUpdater] c.n.e.r.PeerAwareInstanceRegistryImpl    : Current renewal threshold is : 15
-2026-03-27T20:49:42.931+05:30  WARN 99455 --- [eerNodesUpdater] c.n.eureka.cluster.PeerEurekaNodes       : The replica size seems to be empty. Check the route 53 DNS Registry
-2026-03-27T20:49:42.995+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:49:52.241+05:30  INFO 99455 --- [nio-8761-exec-2] c.n.e.registry.AbstractInstanceRegistry  : Registered instance NOTIFICATION-SERVICE/192.168.249.133:notification-service:8087 with status DOWN (replication=false)
-2026-03-27T20:49:55.983+05:30  INFO 99455 --- [io-8761-exec-10] c.n.e.registry.AbstractInstanceRegistry  : Cancelled instance NOTIFICATION-SERVICE/192.168.249.133:notification-service:8087 (replication=false)
-2026-03-27T20:49:57.898+05:30  INFO 99455 --- [nio-8761-exec-4] c.n.e.registry.AbstractInstanceRegistry  : Registered instance NOTIFICATION-SERVICE/192.168.249.133:notification-service:8087 with status UP (replication=false)
-2026-03-27T20:50:42.996+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:51:42.997+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:51:48.297+05:30  INFO 99455 --- [io-8761-exec-10] c.n.e.registry.AbstractInstanceRegistry  : Registered instance API-GATEWAY/192.168.249.133:api-gateway:8080 with status DOWN (replication=false)
-2026-03-27T20:51:53.336+05:30  INFO 99455 --- [nio-8761-exec-7] c.n.e.registry.AbstractInstanceRegistry  : Cancelled instance API-GATEWAY/192.168.249.133:api-gateway:8080 (replication=false)
-2026-03-27T20:51:54.551+05:30  INFO 99455 --- [io-8761-exec-10] c.n.e.registry.AbstractInstanceRegistry  : Registered instance API-GATEWAY/192.168.249.133:api-gateway:8080 with status UP (replication=false)
-2026-03-27T20:52:42.996+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:53:42.997+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:54:42.998+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 1ms
-2026-03-27T20:55:42.999+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:56:42.999+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:57:42.999+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:58:01.460+05:30  INFO 99455 --- [io-8761-exec-10] c.n.e.registry.AbstractInstanceRegistry  : Registered instance API-GATEWAY/192.168.249.133:api-gateway:8080 with status DOWN (replication=false)
-2026-03-27T20:58:06.491+05:30  INFO 99455 --- [nio-8761-exec-2] c.n.e.registry.AbstractInstanceRegistry  : Cancelled instance API-GATEWAY/192.168.249.133:api-gateway:8080 (replication=false)
-2026-03-27T20:58:07.900+05:30  INFO 99455 --- [nio-8761-exec-9] c.n.e.registry.AbstractInstanceRegistry  : Registered instance API-GATEWAY/192.168.249.133:api-gateway:8080 with status UP (replication=false)
-2026-03-27T20:58:42.999+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T20:59:42.932+05:30  WARN 99455 --- [eerNodesUpdater] c.n.eureka.cluster.PeerEurekaNodes       : The replica size seems to be empty. Check the route 53 DNS Registry
-2026-03-27T20:59:43.000+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T21:00:43.000+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T21:01:43.001+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T21:02:43.002+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T21:03:43.001+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T21:04:42.930+05:30  INFO 99455 --- [hresholdUpdater] c.n.e.r.PeerAwareInstanceRegistryImpl    : Current renewal threshold is : 15
-2026-03-27T21:04:43.001+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T21:05:43.001+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T21:06:43.002+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T21:07:43.003+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T21:08:43.003+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T21:09:42.933+05:30  WARN 99455 --- [eerNodesUpdater] c.n.eureka.cluster.PeerEurekaNodes       : The replica size seems to be empty. Check the route 53 DNS Registry
-2026-03-27T21:09:43.004+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T21:10:43.004+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T21:11:43.004+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T21:12:43.004+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T21:13:43.004+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T21:14:43.004+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T21:15:43.004+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T21:16:43.004+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T21:17:43.004+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T21:18:43.005+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T21:19:42.930+05:30  INFO 99455 --- [hresholdUpdater] c.n.e.r.PeerAwareInstanceRegistryImpl    : Current renewal threshold is : 15
-2026-03-27T21:19:42.933+05:30  WARN 99455 --- [eerNodesUpdater] c.n.eureka.cluster.PeerEurekaNodes       : The replica size seems to be empty. Check the route 53 DNS Registry
-2026-03-27T21:19:43.005+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T21:20:43.006+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T21:21:43.006+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T21:22:43.006+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T21:23:43.006+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T21:24:43.006+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T21:25:43.006+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2026-03-27T21:26:43.007+05:30  INFO 99455 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-27T21:32:55.377+05:30  INFO 188728 --- [           main] c.example.demo.EurekaServerApplication   : Starting EurekaServerApplication using Java 17.0.18 with PID 188728 (/home/dheeraj/Desktop/FounderLink/eureka-server/target/classes started by dheeraj in /home/dheeraj/Desktop/FounderLink/eureka-server)
+2026-03-27T21:32:55.379+05:30  INFO 188728 --- [           main] c.example.demo.EurekaServerApplication   : No active profile set, falling back to 1 default profile: "default"
+2026-03-27T21:32:56.006+05:30  INFO 188728 --- [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8761 (http)
+2026-03-27T21:32:56.012+05:30  INFO 188728 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-27T21:32:56.012+05:30  INFO 188728 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-03-27T21:32:56.039+05:30  INFO 188728 --- [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 635 ms
+2026-03-27T21:32:56.450+05:30  INFO 188728 --- [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using JSON encoding codec LegacyJacksonJson
+2026-03-27T21:32:56.451+05:30  INFO 188728 --- [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using JSON decoding codec LegacyJacksonJson
+2026-03-27T21:32:56.525+05:30  INFO 188728 --- [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using XML encoding codec XStreamXml
+2026-03-27T21:32:56.526+05:30  INFO 188728 --- [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using XML decoding codec XStreamXml
+2026-03-27T21:32:56.600+05:30  INFO 188728 --- [           main] o.s.v.b.OptionalValidatorFactoryBean     : Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2026-03-27T21:32:56.890+05:30  WARN 188728 --- [           main] iguration$LoadBalancerCaffeineWarnLogger : Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2026-03-27T21:32:56.906+05:30  INFO 188728 --- [           main] com.netflix.discovery.DiscoveryClient    : Initializing Eureka in region us-east-1
+2026-03-27T21:32:56.906+05:30  INFO 188728 --- [           main] com.netflix.discovery.DiscoveryClient    : Client configured to neither register nor query for data.
+2026-03-27T21:32:56.906+05:30  INFO 188728 --- [           main] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1774627376906 with initial instances count: 0
+2026-03-27T21:32:56.923+05:30  INFO 188728 --- [           main] c.n.eureka.DefaultEurekaServerContext    : Initializing ...
+2026-03-27T21:32:56.923+05:30  WARN 188728 --- [           main] c.n.eureka.cluster.PeerEurekaNodes       : The replica size seems to be empty. Check the route 53 DNS Registry
+2026-03-27T21:32:56.927+05:30  INFO 188728 --- [           main] c.n.e.registry.AbstractInstanceRegistry  : Finished initializing remote region registries. All known remote regions: []
+2026-03-27T21:32:56.927+05:30  INFO 188728 --- [           main] c.n.eureka.DefaultEurekaServerContext    : Initialized
+2026-03-27T21:32:56.931+05:30  INFO 188728 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2026-03-27T21:32:56.963+05:30  INFO 188728 --- [       Thread-9] c.n.e.r.PeerAwareInstanceRegistryImpl    : Got 1 instances from neighboring DS node
+2026-03-27T21:32:56.963+05:30  INFO 188728 --- [       Thread-9] c.n.e.r.PeerAwareInstanceRegistryImpl    : Renew threshold is: 1
+2026-03-27T21:32:56.963+05:30  INFO 188728 --- [       Thread-9] c.n.e.r.PeerAwareInstanceRegistryImpl    : Changing status to UP
+2026-03-27T21:32:56.965+05:30  INFO 188728 --- [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8761 (http) with context path '/'
+2026-03-27T21:32:56.977+05:30  INFO 188728 --- [           main] c.example.demo.EurekaServerApplication   : Started EurekaServerApplication in 1.853 seconds (process running for 2.134)
+2026-03-27T21:32:56.997+05:30  INFO 188728 --- [           main] c.example.demo.EurekaServerApplication   : FounderLink Eureka Discovery Server started succefully!
+2026-03-27T21:32:58.478+05:30  INFO 188728 --- [nio-8761-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-03-27T21:32:58.478+05:30  INFO 188728 --- [nio-8761-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-03-27T21:32:58.480+05:30  INFO 188728 --- [nio-8761-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-03-27T21:32:58.517+05:30  WARN 188728 --- [nio-8761-exec-1] c.n.e.registry.AbstractInstanceRegistry  : DS: Registry: lease doesn't exist, registering resource: NOTIFICATION-SERVICE - 192.168.249.133:notification-service:8087
+2026-03-27T21:32:58.517+05:30  WARN 188728 --- [nio-8761-exec-1] c.n.eureka.resources.InstanceResource    : Not Found (Renew): NOTIFICATION-SERVICE - 192.168.249.133:notification-service:8087
+2026-03-27T21:32:58.600+05:30  INFO 188728 --- [nio-8761-exec-4] c.n.e.registry.AbstractInstanceRegistry  : Registered instance NOTIFICATION-SERVICE/192.168.249.133:notification-service:8087 with status UP (replication=false)
+2026-03-27T21:33:00.792+05:30  WARN 188728 --- [nio-8761-exec-5] c.n.e.registry.AbstractInstanceRegistry  : DS: Registry: lease doesn't exist, registering resource: MESSAGING-SERVICE - 192.168.249.133:messaging-service:8086
+2026-03-27T21:33:00.792+05:30  WARN 188728 --- [nio-8761-exec-5] c.n.eureka.resources.InstanceResource    : Not Found (Renew): MESSAGING-SERVICE - 192.168.249.133:messaging-service:8086
+2026-03-27T21:33:00.808+05:30  INFO 188728 --- [nio-8761-exec-6] c.n.e.registry.AbstractInstanceRegistry  : Registered instance MESSAGING-SERVICE/192.168.249.133:messaging-service:8086 with status UP (replication=false)
+2026-03-27T21:33:07.923+05:30  INFO 188728 --- [io-8761-exec-10] c.n.e.registry.AbstractInstanceRegistry  : Registered instance CONFIG-SERVER/192.168.249.133:config-server:8888 with status UP (replication=false)
+2026-03-27T21:33:08.258+05:30  WARN 188728 --- [nio-8761-exec-2] c.n.e.registry.AbstractInstanceRegistry  : DS: Registry: lease doesn't exist, registering resource: API-GATEWAY - 192.168.249.133:api-gateway:8080
+2026-03-27T21:33:08.259+05:30  WARN 188728 --- [nio-8761-exec-2] c.n.eureka.resources.InstanceResource    : Not Found (Renew): API-GATEWAY - 192.168.249.133:api-gateway:8080
+2026-03-27T21:33:08.273+05:30  INFO 188728 --- [nio-8761-exec-3] c.n.e.registry.AbstractInstanceRegistry  : Registered instance API-GATEWAY/192.168.249.133:api-gateway:8080 with status UP (replication=false)
+2026-03-27T21:33:20.936+05:30  WARN 188728 --- [nio-8761-exec-5] c.n.e.registry.AbstractInstanceRegistry  : DS: Registry: lease doesn't exist, registering resource: USER-SERVICE - 192.168.249.133:user-service:8082
+2026-03-27T21:33:20.936+05:30  WARN 188728 --- [nio-8761-exec-5] c.n.eureka.resources.InstanceResource    : Not Found (Renew): USER-SERVICE - 192.168.249.133:user-service:8082
+2026-03-27T21:33:20.947+05:30  INFO 188728 --- [nio-8761-exec-6] c.n.e.registry.AbstractInstanceRegistry  : Registered instance USER-SERVICE/192.168.249.133:user-service:8082 with status UP (replication=false)
+2026-03-27T21:33:23.071+05:30  WARN 188728 --- [nio-8761-exec-9] c.n.e.registry.AbstractInstanceRegistry  : DS: Registry: lease doesn't exist, registering resource: INVESTMENT-SERVICE - 192.168.249.133:investment-service:8084
+2026-03-27T21:33:23.071+05:30  WARN 188728 --- [nio-8761-exec-9] c.n.eureka.resources.InstanceResource    : Not Found (Renew): INVESTMENT-SERVICE - 192.168.249.133:investment-service:8084
+2026-03-27T21:33:23.087+05:30  INFO 188728 --- [io-8761-exec-10] c.n.e.registry.AbstractInstanceRegistry  : Registered instance INVESTMENT-SERVICE/192.168.249.133:investment-service:8084 with status UP (replication=false)
+2026-03-27T21:33:26.198+05:30  INFO 188728 --- [nio-8761-exec-4] c.n.e.registry.AbstractInstanceRegistry  : Registered instance AUTH-SERVICE/192.168.249.133:auth-service:8081 with status UP (replication=false)
+2026-03-27T21:33:27.123+05:30  INFO 188728 --- [nio-8761-exec-6] c.n.e.registry.AbstractInstanceRegistry  : Registered instance USER-SERVICE/192.168.249.133:user-service:8082 with status DOWN (replication=false)
+2026-03-27T21:33:27.141+05:30  INFO 188728 --- [nio-8761-exec-7] c.n.e.registry.AbstractInstanceRegistry  : Registered instance USER-SERVICE/192.168.249.133:user-service:8082 with status DOWN (replication=false)
+2026-03-27T21:33:27.155+05:30  INFO 188728 --- [nio-8761-exec-8] c.n.e.registry.AbstractInstanceRegistry  : Cancelled instance USER-SERVICE/192.168.249.133:user-service:8082 (replication=false)
+2026-03-27T21:33:34.957+05:30  INFO 188728 --- [nio-8761-exec-6] c.n.e.registry.AbstractInstanceRegistry  : Registered instance STARTUP-SERVICE/192.168.249.133:startup-service:8083 with status UP (replication=false)
+2026-03-27T21:33:38.590+05:30  INFO 188728 --- [nio-8761-exec-2] c.n.e.registry.AbstractInstanceRegistry  : Registered instance INVESTMENT-SERVICE/192.168.249.133:investment-service:8084 with status DOWN (replication=false)
+2026-03-27T21:33:38.596+05:30  INFO 188728 --- [nio-8761-exec-3] c.n.e.registry.AbstractInstanceRegistry  : Registered instance INVESTMENT-SERVICE/192.168.249.133:investment-service:8084 with status DOWN (replication=false)
+2026-03-27T21:33:38.602+05:30  INFO 188728 --- [nio-8761-exec-1] c.n.e.registry.AbstractInstanceRegistry  : Cancelled instance INVESTMENT-SERVICE/192.168.249.133:investment-service:8084 (replication=false)
+2026-03-27T21:33:40.002+05:30  INFO 188728 --- [nio-8761-exec-8] c.n.e.registry.AbstractInstanceRegistry  : Registered instance MESSAGING-SERVICE/192.168.249.133:messaging-service:8086 with status DOWN (replication=false)
+2026-03-27T21:33:40.008+05:30  INFO 188728 --- [nio-8761-exec-9] c.n.e.registry.AbstractInstanceRegistry  : Registered instance MESSAGING-SERVICE/192.168.249.133:messaging-service:8086 with status DOWN (replication=false)
+2026-03-27T21:33:40.016+05:30  INFO 188728 --- [io-8761-exec-10] c.n.e.registry.AbstractInstanceRegistry  : Cancelled instance MESSAGING-SERVICE/192.168.249.133:messaging-service:8086 (replication=false)
+2026-03-27T21:33:40.950+05:30  INFO 188728 --- [nio-8761-exec-5] c.n.e.registry.AbstractInstanceRegistry  : Registered instance TEAM-SERVICE/192.168.249.133:team-service:8085 with status UP (replication=false)
+2026-03-27T21:33:41.397+05:30  INFO 188728 --- [nio-8761-exec-6] c.n.e.registry.AbstractInstanceRegistry  : Registered instance NOTIFICATION-SERVICE/192.168.249.133:notification-service:8087 with status DOWN (replication=false)
+2026-03-27T21:33:41.401+05:30  INFO 188728 --- [nio-8761-exec-7] c.n.e.registry.AbstractInstanceRegistry  : Registered instance NOTIFICATION-SERVICE/192.168.249.133:notification-service:8087 with status DOWN (replication=false)
+2026-03-27T21:33:41.405+05:30  INFO 188728 --- [nio-8761-exec-8] c.n.e.registry.AbstractInstanceRegistry  : Cancelled instance NOTIFICATION-SERVICE/192.168.249.133:notification-service:8087 (replication=false)
+2026-03-27T21:33:48.025+05:30  INFO 188728 --- [nio-8761-exec-2] c.n.e.registry.AbstractInstanceRegistry  : Registered instance API-GATEWAY/192.168.249.133:api-gateway:8080 with status UP (replication=false)
+2026-03-27T21:33:50.129+05:30  INFO 188728 --- [nio-8761-exec-1] c.n.e.registry.AbstractInstanceRegistry  : Registered instance API-GATEWAY/192.168.249.133:api-gateway:8080 with status DOWN (replication=false)
+2026-03-27T21:33:50.135+05:30  INFO 188728 --- [nio-8761-exec-5] c.n.e.registry.AbstractInstanceRegistry  : Cancelled instance API-GATEWAY/192.168.249.133:api-gateway:8080 (replication=false)
+2026-03-27T21:33:50.955+05:30  WARN 188728 --- [nio-8761-exec-4] c.n.e.registry.AbstractInstanceRegistry  : DS: Registry: lease doesn't exist, registering resource: USER-SERVICE - 192.168.249.133:user-service:8082
+2026-03-27T21:33:50.955+05:30  WARN 188728 --- [nio-8761-exec-4] c.n.eureka.resources.InstanceResource    : Not Found (Renew): USER-SERVICE - 192.168.249.133:user-service:8082
+2026-03-27T21:33:50.964+05:30  INFO 188728 --- [nio-8761-exec-6] c.n.e.registry.AbstractInstanceRegistry  : Registered instance USER-SERVICE/192.168.249.133:user-service:8082 with status UP (replication=false)
+2026-03-27T21:33:53.097+05:30  WARN 188728 --- [nio-8761-exec-9] c.n.e.registry.AbstractInstanceRegistry  : DS: Registry: lease doesn't exist, registering resource: INVESTMENT-SERVICE - 192.168.249.133:investment-service:8084
+2026-03-27T21:33:53.098+05:30  WARN 188728 --- [nio-8761-exec-9] c.n.eureka.resources.InstanceResource    : Not Found (Renew): INVESTMENT-SERVICE - 192.168.249.133:investment-service:8084
+2026-03-27T21:33:53.105+05:30  INFO 188728 --- [nio-8761-exec-3] c.n.e.registry.AbstractInstanceRegistry  : Registered instance INVESTMENT-SERVICE/192.168.249.133:investment-service:8084 with status UP (replication=false)
+2026-03-27T21:33:56.964+05:30  INFO 188728 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-27T21:33:58.626+05:30  WARN 188728 --- [nio-8761-exec-6] c.n.e.registry.AbstractInstanceRegistry  : DS: Registry: lease doesn't exist, registering resource: NOTIFICATION-SERVICE - 192.168.249.133:notification-service:8087
+2026-03-27T21:33:58.627+05:30  WARN 188728 --- [nio-8761-exec-6] c.n.eureka.resources.InstanceResource    : Not Found (Renew): NOTIFICATION-SERVICE - 192.168.249.133:notification-service:8087
+2026-03-27T21:33:58.637+05:30  INFO 188728 --- [nio-8761-exec-7] c.n.e.registry.AbstractInstanceRegistry  : Registered instance NOTIFICATION-SERVICE/192.168.249.133:notification-service:8087 with status UP (replication=false)
+2026-03-27T21:34:00.822+05:30  WARN 188728 --- [nio-8761-exec-8] c.n.e.registry.AbstractInstanceRegistry  : DS: Registry: lease doesn't exist, registering resource: MESSAGING-SERVICE - 192.168.249.133:messaging-service:8086
+2026-03-27T21:34:00.823+05:30  WARN 188728 --- [nio-8761-exec-8] c.n.eureka.resources.InstanceResource    : Not Found (Renew): MESSAGING-SERVICE - 192.168.249.133:messaging-service:8086
+2026-03-27T21:34:00.829+05:30  INFO 188728 --- [io-8761-exec-10] c.n.e.registry.AbstractInstanceRegistry  : Registered instance MESSAGING-SERVICE/192.168.249.133:messaging-service:8086 with status UP (replication=false)
+2026-03-27T21:34:08.287+05:30  WARN 188728 --- [nio-8761-exec-4] c.n.e.registry.AbstractInstanceRegistry  : DS: Registry: lease doesn't exist, registering resource: API-GATEWAY - 192.168.249.133:api-gateway:8080
+2026-03-27T21:34:08.288+05:30  WARN 188728 --- [nio-8761-exec-4] c.n.eureka.resources.InstanceResource    : Not Found (Renew): API-GATEWAY - 192.168.249.133:api-gateway:8080
+2026-03-27T21:34:08.296+05:30  INFO 188728 --- [nio-8761-exec-6] c.n.e.registry.AbstractInstanceRegistry  : Registered instance API-GATEWAY/192.168.249.133:api-gateway:8080 with status UP (replication=false)
+2026-03-27T21:34:56.965+05:30  INFO 188728 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-27T21:35:56.966+05:30  INFO 188728 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 1ms
+2026-03-27T21:36:56.966+05:30  INFO 188728 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-27T21:37:56.966+05:30  INFO 188728 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-27T21:38:56.966+05:30  INFO 188728 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-27T21:39:56.966+05:30  INFO 188728 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-27T21:40:11.569+05:30  INFO 188728 --- [ionShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-27T21:40:11.570+05:30  INFO 188728 --- [nio-8761-exec-9] c.n.e.registry.AbstractInstanceRegistry  : Registered instance TEAM-SERVICE/192.168.249.133:team-service:8085 with status DOWN (replication=false)
+2026-03-27T21:40:11.572+05:30  INFO 188728 --- [nio-8761-exec-3] c.n.e.registry.AbstractInstanceRegistry  : Registered instance AUTH-SERVICE/192.168.249.133:auth-service:8081 with status DOWN (replication=false)
+2026-03-27T21:40:11.572+05:30  INFO 188728 --- [nio-8761-exec-2] c.n.e.registry.AbstractInstanceRegistry  : Registered instance STARTUP-SERVICE/192.168.249.133:startup-service:8083 with status DOWN (replication=false)
+2026-03-27T21:40:11.576+05:30  INFO 188728 --- [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-03-27T21:40:11.579+05:30  INFO 188728 --- [ionShutdownHook] c.n.eureka.DefaultEurekaServerContext    : Shutting down ...
+2026-03-27T21:40:11.581+05:30  INFO 188728 --- [ionShutdownHook] c.n.eureka.DefaultEurekaServerContext    : Shut down
+2026-03-27T21:40:11.582+05:30  INFO 188728 --- [ionShutdownHook] c.n.eureka.DefaultEurekaServerContext    : Shutting down ...
+2026-03-27T21:40:11.582+05:30  INFO 188728 --- [ionShutdownHook] c.n.eureka.DefaultEurekaServerContext    : Shut down
+2026-03-27T21:40:11.590+05:30  INFO 188728 --- [ionShutdownHook] com.netflix.discovery.DiscoveryClient    : Shutting down DiscoveryClient ...
+2026-03-27T21:40:11.590+05:30  INFO 188728 --- [ionShutdownHook] com.netflix.discovery.DiscoveryClient    : Completed shut down of DiscoveryClient
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  07:17 min
+[INFO] Finished at: 2026-03-27T21:40:11+05:30
+[INFO] ------------------------------------------------------------------------

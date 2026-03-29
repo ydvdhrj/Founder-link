@@ -47,7 +47,7 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: docker
       CONFIG_SERVER_URL: http://config-server:8888
-      MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://founderlink-zipkin:9411/api/v2/spans
+      MANAGEMENT_TRACING_EXPORT_ZIPKIN_ENDPOINT: http://founderlink-zipkin:9411/api/v2/spans
     ports:
       - "8761:8761"
     healthcheck:
@@ -72,7 +72,7 @@ services:
       CONFIG_SERVER_URL: http://config-server:8888
       SPRING_CLOUD_CONFIG_SERVER_GIT_URI: https://github.com/ydvdhrj/founderlink-config-repo.git
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
-      MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://founderlink-zipkin:9411/api/v2/spans
+      MANAGEMENT_TRACING_EXPORT_ZIPKIN_ENDPOINT: http://founderlink-zipkin:9411/api/v2/spans
     ports:
       - "8888:8888"
     healthcheck:
@@ -107,7 +107,7 @@ services:
       EUREKA_INSTANCE_PREFER_IP_ADDRESS: "true"
       SPRING_DATASOURCE_URL: jdbc:postgresql://founderlink-postgres:5432/auth_db
       SPRING_RABBITMQ_HOST: founderlink-rabbitmq
-      MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://founderlink-zipkin:9411/api/v2/spans
+      MANAGEMENT_TRACING_EXPORT_ZIPKIN_ENDPOINT: http://founderlink-zipkin:9411/api/v2/spans
     ports:
       - "8081:8081"
 
@@ -136,7 +136,7 @@ services:
       EUREKA_INSTANCE_PREFER_IP_ADDRESS: "true"
       SPRING_DATASOURCE_URL: jdbc:postgresql://founderlink-postgres:5432/users_db
       SPRING_RABBITMQ_HOST: founderlink-rabbitmq
-      MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://founderlink-zipkin:9411/api/v2/spans
+      MANAGEMENT_TRACING_EXPORT_ZIPKIN_ENDPOINT: http://founderlink-zipkin:9411/api/v2/spans
     ports:
       - "8082:8082"
 
@@ -165,7 +165,7 @@ services:
       EUREKA_INSTANCE_PREFER_IP_ADDRESS: "true"
       SPRING_DATASOURCE_URL: jdbc:postgresql://founderlink-postgres:5432/startups_db
       SPRING_RABBITMQ_HOST: founderlink-rabbitmq
-      MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://founderlink-zipkin:9411/api/v2/spans
+      MANAGEMENT_TRACING_EXPORT_ZIPKIN_ENDPOINT: http://founderlink-zipkin:9411/api/v2/spans
     ports:
       - "8083:8083"
 
@@ -194,7 +194,7 @@ services:
       EUREKA_INSTANCE_PREFER_IP_ADDRESS: "true"
       SPRING_DATASOURCE_URL: jdbc:postgresql://founderlink-postgres:5432/investments_db
       SPRING_RABBITMQ_HOST: founderlink-rabbitmq
-      MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://founderlink-zipkin:9411/api/v2/spans
+      MANAGEMENT_TRACING_EXPORT_ZIPKIN_ENDPOINT: http://founderlink-zipkin:9411/api/v2/spans
     ports:
       - "8084:8084"
 
@@ -223,7 +223,7 @@ services:
       EUREKA_INSTANCE_PREFER_IP_ADDRESS: "true"
       SPRING_DATASOURCE_URL: jdbc:postgresql://founderlink-postgres:5432/teams_db
       SPRING_RABBITMQ_HOST: founderlink-rabbitmq
-      MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://founderlink-zipkin:9411/api/v2/spans
+      MANAGEMENT_TRACING_EXPORT_ZIPKIN_ENDPOINT: http://founderlink-zipkin:9411/api/v2/spans
     ports:
       - "8085:8085"
 
@@ -250,9 +250,9 @@ services:
       SPRING_CONFIG_IMPORT: optional:configserver:http://config-server:8888
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
       EUREKA_INSTANCE_PREFER_IP_ADDRESS: "true"
-      SPRING_DATA_MONGODB_URI: mongodb://founderlink-mongo:27017/messaging_db
+      SPRING_MONGODB_URI: mongodb://founderlink-mongo:27017/messaging_db
       SPRING_RABBITMQ_HOST: founderlink-rabbitmq
-      MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://founderlink-zipkin:9411/api/v2/spans
+      MANAGEMENT_TRACING_EXPORT_ZIPKIN_ENDPOINT: http://founderlink-zipkin:9411/api/v2/spans
     ports:
       - "8086:8086"
 
@@ -278,7 +278,7 @@ services:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
       EUREKA_INSTANCE_PREFER_IP_ADDRESS: "true"
       SPRING_RABBITMQ_HOST: founderlink-rabbitmq
-      MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://founderlink-zipkin:9411/api/v2/spans
+      MANAGEMENT_TRACING_EXPORT_ZIPKIN_ENDPOINT: http://founderlink-zipkin:9411/api/v2/spans
     ports:
       - "8087:8087"
 
@@ -314,7 +314,7 @@ services:
       SPRING_CLOUD_CONFIG_URI: http://config-server:8888
       SPRING_CONFIG_IMPORT: optional:configserver:http://config-server:8888
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
-      MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://founderlink-zipkin:9411/api/v2/spans
+      MANAGEMENT_TRACING_EXPORT_ZIPKIN_ENDPOINT: http://founderlink-zipkin:9411/api/v2/spans
     ports:
       - "8080:8080"
     healthcheck:
