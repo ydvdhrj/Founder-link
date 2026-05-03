@@ -1,0 +1,90 @@
+@if (loading()) { <div class="card">Loading…</div> }
+@else if (error()) { <div class="alert error">{{ error() }}</div> }
+@else if (data(); as d) {
+  <a class="btn ghost sm" routerLink="/startups" style="margin-bottom: 1rem;">← Back to startups</a>
+
+  <div class="hero card">
+    <div class="brand-avatar">{{ d.startup.name.charAt(0).toUpperCase() }}</div>
+    <div class="hero-body">
+      <div class="row" style="align-items: center; gap: .5rem;">
+        <h1>{{ d.startup.name }}</h1>
+        <span class="chip">{{ d.startup.stage }}</span>
+      </div>
+      <p>{{ d.startup.industry || 'General' }} • Funding goal: <b>{{ fmt(d.startup.fundingGoal) }}</b></p>
+      @if (d.founder && d.founder.name) {
+        <p>Founder: <b>{{ d.founder.name }}</b> ({{ d.founder.email }})</p>
+      }
+    </div>
+    <div class="row" style="gap: .5rem;">
+      <button class="btn ghost" (click)="messageFounder()">✉ Message founder</button>
+      @if (isOwner()) {
+        <button class="btn primary" (click)="inviteToTeam()">+ Invite team member</button>
+      }
+    </div>
+  </div>
+
+  <div class="grid grid-2" style="margin-top: 1rem;">
+    <div class="card">
+      <h3>About</h3>
+      <p style="white-space: pre-line;">{{ d.startup.description || 'No description provided.' }}</p>
+    </div>
+
+    @if (isInvestor() && !isOwner()) {
+      <div class="card">
+        <h3>Invest in this startup</h3>
+        @if (investError()) { <div class="alert error">{{ investError() }}</div> }
+        @if (investSuccess()) { <div class="alert success">{{ investSuccess() }}</div> }
+        <form [formGroup]="investForm" (ngSubmit)="invest()">
+          <div class="field">
+            <label>Amount (USD)</label>
+            <input class="input" type="number" formControlName="amount" min="1" />
+          </div>
+          <button class="btn primary" [disabled]="investForm.invalid">Submit investment</button>
+        </form>
+      </div>
+    }
+
+    <div class="card">
+      <h3>Investments ({{ investments().length }})</h3>
+      @if (investments().length === 0) { <p>No investments yet.</p> }
+      @else {
+        <ul class="item-list">
+          @for (i of investments(); track i.id) {
+            <li>
+              <div class="item-main">
+                <div class="item-title">{{ fmt(i.amount) }}</div>
+                <div class="item-sub">Investor: {{ i.investorId }}</div>
+              </div>
+              <span class="chip" [class]="'chip ' + statusClass(i.status)">{{ i.status }}</span>
+              @if (isOwner() && i.status === 'PENDING') {
+                <div style="display: flex; gap: .35rem; margin-left: .5rem;">
+                  <button class="btn sm primary" (click)="updateStatus(i.id, 'APPROVED')">Approve</button>
+                  <button class="btn sm danger" (click)="updateStatus(i.id, 'REJECTED')">Reject</button>
+                </div>
+              }
+            </li>
+          }
+        </ul>
+      }
+    </div>
+
+    <div class="card">
+      <h3>Team ({{ members().length }})</h3>
+      @if (members().length === 0) { <p>No team members yet.</p> }
+      @else {
+        <ul class="item-list">
+          @for (m of members(); track m.id) {
+            <li>
+              <div class="avatar-sq">{{ m.role.charAt(0) }}</div>
+              <div class="item-main">
+                <div class="item-title">{{ m.role.replace('_', ' ') }}</div>
+                <div class="item-sub">User: {{ m.invitedUserId }}</div>
+              </div>
+              <span class="chip">{{ m.status }}</span>
+            </li>
+          }
+        </ul>
+      }
+    </div>
+  </div>
+}

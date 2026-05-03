@@ -1,0 +1,31 @@
+<div class="page-head">
+  <div>
+    <h1>Directory</h1>
+    <p>Find founders, investors and co-founders across FounderLink.</p>
+  </div>
+  <input class="input" style="max-width: 280px;" [value]="filter()" (input)="filter.set($any($event.target).value)" placeholder="Search by name, skill…" />
+</div>
+
+@if (loading()) {
+  <div class="card">Loading people…</div>
+} @else if (error()) {
+  <div class="alert error">{{ error() }}</div>
+} @else if (filtered().length === 0) {
+  <div class="card">No profiles match your search.</div>
+} @else {
+  <div class="grid grid-3">
+    @for (r of filtered(); track r.userId) {
+      <div class="card hover person" (click)="open(r)">
+        <div class="person-head">
+          <div class="avatar">{{ initials(r.name) }}</div>
+          <div>
+            <div class="name">{{ r.name }}</div>
+            <div class="email">{{ r.email }}</div>
+          </div>
+        </div>
+        <p class="bio">{{ r.bio || 'No bio yet.' }}</p>
+        @if (r.skills) { <div class="chip">{{ r.skills }}</div> }
+      </div>
+    }
+  </div>
+}

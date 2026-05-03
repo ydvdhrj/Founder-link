@@ -1,0 +1,50 @@
+<div class="page-head">
+  <div>
+    <h1>Discover Startups</h1>
+    <p>Explore ventures looking for capital and collaborators.</p>
+  </div>
+  <div style="display: flex; gap: .5rem;">
+    <select class="input" style="max-width: 160px;" [value]="stage()" (change)="stage.set($any($event.target).value)">
+      <option value="">All stages</option>
+      <option value="IDEA">Idea</option>
+      <option value="MVP">MVP</option>
+      <option value="EARLY_TRACTION">Early Traction</option>
+      <option value="SCALING">Scaling</option>
+    </select>
+    <input class="input" style="max-width: 240px;" [value]="filter()" (input)="filter.set($any($event.target).value)" placeholder="Search startups…" />
+    @if (isFounder()) {
+      <a class="btn primary" routerLink="/startups/new">+ New Startup</a>
+    }
+  </div>
+</div>
+
+@if (loading()) { <div class="card">Loading startups…</div> }
+@else if (error()) { <div class="alert error">{{ error() }}</div> }
+@else if (filtered().length === 0) {
+  <div class="card" style="text-align:center; padding: 2.5rem;">
+    <h3>No startups yet</h3>
+    <p>Be the first to create one.</p>
+    @if (isFounder()) { <a class="btn primary" routerLink="/startups/new">+ Create Startup</a> }
+  </div>
+}
+@else {
+  <div class="grid grid-3">
+    @for (s of filtered(); track s.id) {
+      <div class="card hover s-card" (click)="open(s)">
+        <div class="s-head">
+          <div class="avatar">{{ s.name.charAt(0).toUpperCase() }}</div>
+          <div>
+            <div class="s-name">{{ s.name }}</div>
+            <div class="s-ind">{{ s.industry || 'General' }}</div>
+          </div>
+        </div>
+        <p class="desc">{{ s.description || 'No description provided.' }}</p>
+        <div class="row" style="gap: .5rem; margin-bottom: .5rem;">
+          <span class="chip" [class]="'chip ' + stageClass(s.stage)">{{ s.stage }}</span>
+          <span class="chip">{{ fmt(s.fundingGoal) }}</span>
+        </div>
+        <button class="btn ghost sm" style="width: 100%;">View Details →</button>
+      </div>
+    }
+  </div>
+}

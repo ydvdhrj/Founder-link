@@ -1,0 +1,81 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 700px at 75% -20%, rgba(139, 92, 246, 0.28), transparent 60%),
+    radial-gradient(900px 600px at -10% 30%, rgba(99, 102, 241, 0.22), transparent 60%),
+    var(--bg-0);
+}
+
+.auth-wrap {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 2rem 1rem;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 440px;
+  padding: 2rem;
+  background: rgba(30, 41, 59, 0.7);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  justify-content: center;
+  margin-bottom: 1rem;
+  font-weight: 800;
+  font-size: 1.35rem;
+}
+.brand .logo {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: var(--gradient);
+  display: grid; place-items: center;
+  color: white;
+  box-shadow: 0 10px 24px -8px rgba(139, 92, 246, .7);
+}
+
+h1.title {
+  text-align: center;
+  margin-bottom: .4rem;
+  font-size: 1.5rem;
+}
+p.subtitle { text-align: center; margin-bottom: 1.5rem; }
+
+.footer-link {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: .88rem;
+  color: var(--text-dim);
+}
+
+.role-picker {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .5rem;
+}
+.role-option {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: .7rem .5rem;
+  text-align: center;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: .88rem;
+  color: var(--text-dim);
+  background: rgba(255,255,255,0.02);
+  transition: all .15s;
+}
+.role-option:hover { border-color: rgba(139,92,246,.4); color: var(--text); }
+.role-option.selected {
+  border-color: var(--primary-2);
+  background: var(--gradient-soft);
+  color: #fff;
+}

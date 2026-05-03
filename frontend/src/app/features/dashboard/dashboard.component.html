@@ -1,0 +1,103 @@
+<section class="hero card">
+  <div>
+    <h1>Welcome back, {{ user()?.name }} 👋</h1>
+    <p>Here's a snapshot of your FounderLink activity.</p>
+  </div>
+  <div class="hero-actions">
+    @if (isFounder()) {
+      <a class="btn primary" routerLink="/startups/new">+ New Startup</a>
+    }
+    @if (isInvestor()) {
+      <a class="btn primary" routerLink="/startups">Discover Startups</a>
+    }
+    <a class="btn ghost" routerLink="/messages">Open Messages</a>
+  </div>
+</section>
+
+<div class="grid grid-4 stats">
+  @if (isFounder()) {
+    <div class="stat card">
+      <div class="stat-label">My Startups</div>
+      <div class="stat-value">{{ myStartups().length }}</div>
+      <div class="chip info">Founder</div>
+    </div>
+    <div class="stat card">
+      <div class="stat-label">Total Funding Goal</div>
+      <div class="stat-value">{{ fmtMoney(totalFunding()) }}</div>
+      <div class="chip">Target</div>
+    </div>
+  }
+  @if (isInvestor()) {
+    <div class="stat card">
+      <div class="stat-label">My Investments</div>
+      <div class="stat-value">{{ myInvestments().length }}</div>
+      <div class="chip info">Investor</div>
+    </div>
+    <div class="stat card">
+      <div class="stat-label">Total Invested</div>
+      <div class="stat-value">{{ fmtMoney(totalInvested()) }}</div>
+      <div class="chip success">Portfolio</div>
+    </div>
+  }
+  <div class="stat card">
+    <div class="stat-label">Active Startups</div>
+    <div class="stat-value">{{ allStartups().length }}</div>
+    <div class="chip">Global</div>
+  </div>
+  <div class="stat card">
+    <div class="stat-label">Community</div>
+    <div class="stat-value">∞</div>
+    <div class="chip">Network</div>
+  </div>
+</div>
+
+<div class="grid grid-2" style="margin-top: 1rem;">
+  <div class="card">
+    <div class="card-head">
+      <h3>Recent Startups</h3>
+      <a class="btn ghost sm" routerLink="/startups">View all →</a>
+    </div>
+    @if (allStartups().length === 0) {
+      <p>No startups yet. Be the first to launch one!</p>
+    } @else {
+      <ul class="item-list">
+        @for (s of allStartups().slice(0, 5); track s.id) {
+          <li (click)="openStartup(s.id)">
+            <div class="avatar-sq">{{ s.name.charAt(0).toUpperCase() }}</div>
+            <div class="item-main">
+              <div class="item-title">{{ s.name }}</div>
+              <div class="item-sub">{{ s.industry || 'General' }} • {{ s.stage }}</div>
+            </div>
+            <div class="chip">{{ fmtMoney(s.fundingGoal) }}</div>
+          </li>
+        }
+      </ul>
+    }
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <h3>Quick Actions</h3>
+    </div>
+    <div class="actions-grid">
+      <a class="action" routerLink="/profile">
+        <span class="ai">☺</span>
+        <div><strong>Update Profile</strong><div class="sub">Keep your info fresh</div></div>
+      </a>
+      <a class="action" routerLink="/directory">
+        <span class="ai">≡</span>
+        <div><strong>Browse Members</strong><div class="sub">Find collaborators</div></div>
+      </a>
+      @if (isFounder()) {
+        <a class="action" routerLink="/teams/invite">
+          <span class="ai">⚑</span>
+          <div><strong>Invite Co-founder</strong><div class="sub">Build your team</div></div>
+        </a>
+      }
+      <a class="action" routerLink="/messages">
+        <span class="ai">✉</span>
+        <div><strong>Send a Message</strong><div class="sub">Start a conversation</div></div>
+      </a>
+    </div>
+  </div>
+</div>

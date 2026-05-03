@@ -1,0 +1,33 @@
+@if (loading()) {
+  <div class="card">Loading…</div>
+} @else if (error()) {
+  <div class="alert error">{{ error() }}</div>
+} @else if (profile(); as p) {
+  <a class="btn ghost sm" routerLink="/directory" style="margin-bottom: 1rem;">← Back to Directory</a>
+
+  <div class="card profile-head">
+    <div class="big-avatar">{{ initials(p.name) }}</div>
+    <div style="flex:1;">
+      <h1>{{ p.name }}</h1>
+      <p>{{ p.email }}</p>
+    </div>
+    <button class="btn primary" (click)="message()">✉ Message</button>
+  </div>
+
+  <div class="grid grid-2" style="margin-top: 1rem;">
+    <div class="card"><h3>Bio</h3><p>{{ p.bio || '—' }}</p></div>
+    <div class="card"><h3>Skills</h3><p>{{ p.skills || '—' }}</p></div>
+    <div class="card"><h3>Experience</h3><p style="white-space: pre-line;">{{ p.experience || '—' }}</p></div>
+    <div class="card">
+      <h3>Portfolio</h3>
+      @if (!p.portfolioLinks || p.portfolioLinks.length === 0) { <p>No links.</p> }
+      @else {
+        <ul class="link-list">
+          @for (l of p.portfolioLinks; track l) {
+            <li><a [href]="l" target="_blank" rel="noopener">{{ l }}</a></li>
+          }
+        </ul>
+      }
+    </div>
+  </div>
+}

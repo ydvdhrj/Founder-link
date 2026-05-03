@@ -1,0 +1,67 @@
+.hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, rgba(99,102,241,.18), rgba(139,92,246,.1)), var(--surface);
+  border: 1px solid rgba(139,92,246,.3);
+  margin-bottom: 1rem;
+}
+.hero h1 { font-size: 1.6rem; }
+.hero p { margin: 0; }
+.hero-actions { display: flex; gap: .5rem; }
+
+.stats .stat {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+.stat-label { color: var(--text-dim); font-size: .82rem; }
+.stat-value { font-size: 1.75rem; font-weight: 800; }
+
+.card-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+.card-head h3 { margin: 0; }
+
+.item-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: .35rem; }
+.item-list li {
+  display: flex; align-items: center; gap: .85rem;
+  padding: .6rem .75rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background .12s;
+}
+.item-list li:hover { background: rgba(255,255,255,.02); }
+.avatar-sq {
+  width: 38px; height: 38px; border-radius: 10px;
+  background: var(--gradient);
+  display: grid; place-items: center;
+  color: white; font-weight: 800;
+}
+.item-main { flex: 1; }
+.item-title { font-weight: 600; }
+.item-sub { font-size: .78rem; color: var(--text-dim); }
+
+.actions-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: .75rem;
+}
+.action {
+  display: flex; align-items: center; gap: .75rem;
+  padding: .85rem;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.02);
+  color: var(--text);
+  text-decoration: none;
+  transition: all .12s;
+}
+.action:hover { border-color: rgba(139,92,246,.4); text-decoration: none; transform: translateY(-1px); }
+.action .ai {
+  width: 40px; height: 40px; border-radius: 10px;
+  background: var(--gradient-soft);
+  color: var(--primary-3);
+  display: grid; place-items: center;
+  font-size: 1.1rem;
+  border: 1px solid rgba(139,92,246,.35);
+}
+.action .sub { font-size: .75rem; color: var(--text-dim); }

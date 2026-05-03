@@ -1,0 +1,46 @@
+@if (loading()) {
+  <div class="card">Loading profile…</div>
+} @else if (notFound()) {
+  <div class="card empty-state">
+    <h2>You don't have a profile yet</h2>
+    <p>Create your FounderLink profile to connect with the community.</p>
+    <a class="btn primary" routerLink="/profile/create">Create Profile</a>
+  </div>
+} @else if (profile(); as p) {
+  <div class="card profile-head">
+    <div class="big-avatar">{{ initials(p.name) }}</div>
+    <div style="flex:1;">
+      <h1>{{ p.name }}</h1>
+      <p>{{ p.email }}</p>
+      <div class="chip">{{ me()?.roles?.[0] }}</div>
+    </div>
+    <a class="btn primary" routerLink="/profile/edit">Edit Profile</a>
+  </div>
+
+  <div class="grid grid-2" style="margin-top: 1rem;">
+    <div class="card">
+      <h3>Bio</h3>
+      <p>{{ p.bio || 'No bio added yet.' }}</p>
+    </div>
+    <div class="card">
+      <h3>Skills</h3>
+      <p>{{ p.skills || '—' }}</p>
+    </div>
+    <div class="card">
+      <h3>Experience</h3>
+      <p style="white-space: pre-line;">{{ p.experience || '—' }}</p>
+    </div>
+    <div class="card">
+      <h3>Portfolio</h3>
+      @if (!p.portfolioLinks || p.portfolioLinks.length === 0) {
+        <p>No portfolio links yet.</p>
+      } @else {
+        <ul class="link-list">
+          @for (l of p.portfolioLinks; track l) {
+            <li><a [href]="l" target="_blank" rel="noopener">{{ l }}</a></li>
+          }
+        </ul>
+      }
+    </div>
+  </div>
+}

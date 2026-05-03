@@ -1,0 +1,69 @@
+<div class="chat-shell">
+  <aside class="chat-side card">
+    <h3 style="margin-bottom: .75rem;">Messages</h3>
+
+    <form [formGroup]="lookup" (ngSubmit)="startChatByEmail()" class="lookup">
+      <input class="input" type="email" formControlName="email" placeholder="Start chat by email…" />
+      <button class="btn primary sm" [disabled]="lookup.invalid">Go</button>
+    </form>
+    @if (lookupError()) { <div class="alert error">{{ lookupError() }}</div> }
+
+    <div class="contacts">
+      @if (loadingContacts()) { <p>Loading contacts…</p> }
+      @else if (contacts().length === 0) { <p>No contacts yet.</p> }
+      @else {
+        @for (c of contacts(); track c.userId) {
+          <button
+            class="contact"
+            [class.active]="activeId() === c.userId.toString()"
+            (click)="openChat(c.userId)"
+          >
+            <div class="avatar">{{ initials(c.name) }}</div>
+            <div class="c-meta">
+              <div class="c-name">{{ c.name }}</div>
+              <div class="c-sub">{{ c.email }}</div>
+            </div>
+          </button>
+        }
+      }
+    </div>
+  </aside>
+
+  <section class="chat-main card">
+    @if (!activeId()) {
+      <div class="empty">
+        <h2>Your conversations</h2>
+        <p>Pick a contact on the left, or start a new chat by email.</p>
+      </div>
+    } @else {
+      <header class="chat-head">
+        <div class="avatar">{{ initials(activeContact()?.name || '?') }}</div>
+        <div>
+          <div class="title">{{ activeContact()?.name || 'User ' + activeId() }}</div>
+          <div class="sub">{{ activeContact()?.email || '—' }}</div>
+        </div>
+      </header>
+
+      <div class="messages">
+        @if (error()) { <div class="alert error">{{ error() }}</div> }
+        @if (loadingMessages()) { <p>Loading messages…</p> }
+        @else if (messages().length === 0) {
+          <p style="text-align: center; color: var(--text-dim); margin-top: 2rem;">No messages yet. Say hi 👋</p>
+        }
+        @else {
+          @for (m of messages(); track m.id) {
+            <div class="bubble" [class.mine]="isMine(m)">
+              <div class="text">{{ m.content }}</div>
+              <div class="ts">{{ m.timestamp }}</div>
+            </div>
+          }
+        }
+      </div>
+
+      <form [formGroup]="form" (ngSubmit)="send()" class="composer">
+        <input class="input" formControlName="content" placeholder="Type a message…" autocomplete="off" />
+        <button class="btn primary" [disabled]="form.invalid">Send</button>
+      </form>
+    }
+  </section>
+</div>

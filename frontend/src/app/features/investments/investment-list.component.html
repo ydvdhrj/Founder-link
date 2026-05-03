@@ -1,0 +1,53 @@
+<div class="page-head">
+  <div>
+    <h1>My Investments</h1>
+    <p>Track your FounderLink portfolio.</p>
+  </div>
+  <div style="display: flex; gap: .5rem;">
+    <select class="input" style="max-width: 180px;" [value]="filter()" (change)="filter.set($any($event.target).value)">
+      <option value="">All statuses</option>
+      <option value="PENDING">Pending</option>
+      <option value="APPROVED">Approved</option>
+      <option value="REJECTED">Rejected</option>
+      <option value="COMPLETED">Completed</option>
+    </select>
+    <a class="btn primary" routerLink="/startups">+ Invest in a startup</a>
+  </div>
+</div>
+
+@if (!isInvestor()) {
+  <div class="card" style="text-align: center; padding: 2rem;">
+    <h3>Investor access only</h3>
+    <p>Create an account with the Investor role to track investments.</p>
+  </div>
+} @else if (loading()) { <div class="card">Loading…</div> }
+@else if (error()) { <div class="alert error">{{ error() }}</div> }
+@else {
+  <div class="grid grid-3" style="margin-bottom: 1rem;">
+    <div class="card"><div class="stat-label">Total Investments</div><div class="stat-value">{{ rows().length }}</div></div>
+    <div class="card"><div class="stat-label">Total Amount</div><div class="stat-value">{{ fmt(totalAmount()) }}</div></div>
+    <div class="card"><div class="stat-label">Pending</div><div class="stat-value">{{ pendingCount() }}</div></div>
+  </div>
+
+  @if (filtered().length === 0) {
+    <div class="card">No investments match this filter.</div>
+  } @else {
+    <div class="card">
+      <table class="tbl">
+        <thead>
+          <tr><th>Amount</th><th>Startup</th><th>Status</th><th>Created</th></tr>
+        </thead>
+        <tbody>
+          @for (i of filtered(); track i.id) {
+            <tr>
+              <td><b>{{ fmt(i.amount) }}</b></td>
+              <td><a [routerLink]="['/startups', i.startupId]">{{ i.startupId }}</a></td>
+              <td><span class="chip" [class]="'chip ' + statusClass(i.status)">{{ i.status }}</span></td>
+              <td>{{ i.createdAt || '—' }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+}

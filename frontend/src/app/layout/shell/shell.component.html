@@ -1,0 +1,49 @@
+<div class="shell" [class.collapsed]="!sidebarOpen()">
+  <aside class="sidebar">
+    <div class="brand">
+      <span class="logo">◆</span>
+      <span class="brand-text">FounderLink</span>
+    </div>
+
+    <nav class="nav">
+      @for (item of navFor(); track item.path) {
+        <a
+          [routerLink]="item.path"
+          routerLinkActive="active"
+          class="nav-item"
+        >
+          <span class="nav-icon">{{ item.icon }}</span>
+          <span class="nav-label">{{ item.label }}</span>
+        </a>
+      }
+    </nav>
+
+    <button class="logout" (click)="logout()">
+      <span class="nav-icon">⎋</span>
+      <span class="nav-label">Logout</span>
+    </button>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <button class="icon-btn" (click)="toggleSidebar()" title="Toggle sidebar">☰</button>
+      <div class="search">
+        <input class="input" type="text" placeholder="Search founders, startups…" />
+      </div>
+      <div class="spacer"></div>
+      @if (user(); as u) {
+        <div class="user-chip">
+          <div class="avatar">{{ initials() }}</div>
+          <div class="user-meta">
+            <div class="user-name">{{ u.name }}</div>
+            <div class="user-role">{{ roleLabel() }}</div>
+          </div>
+        </div>
+      }
+    </header>
+
+    <main class="content">
+      <router-outlet />
+    </main>
+  </div>
+</div>
